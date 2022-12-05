@@ -4,3 +4,5 @@ package-lock.json
 package.json
 postcss.config.js
 webpack.config.js
+
+/src/sass/destyle.scss
