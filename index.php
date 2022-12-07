@@ -7,13 +7,18 @@
   <body>
 		<section class="container">
 			<h1>栄養素計算</h1>
+			<section class="js-sections">
 			<?php
 				// 基本設定
 				include './script/inc/_incConditions.php';
-
+			?>
+			</section>
+			<section class="js-sections">
+			<?php
 				// メニューの入力
 				include './script/inc/_incMenu.php';
 			?>
+			</section>
 			<footer class="footer">
 				<p>このアプリの制作者は、医療や栄養学の専門家ではありません。</p>
 				<p>18歳以上が対象です。妊婦さんやご病気の方などは、お医者さんなどの専門家の指示の従ってください。</p>

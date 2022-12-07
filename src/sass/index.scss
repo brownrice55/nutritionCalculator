@@ -3,26 +3,39 @@
 body {
   line-height: 1.6;
 }
+.disp--none {
+  display: none;
+}
 .container {
   margin: 20px auto;
   text-align: center;
   max-width: 600px;
 }
-.conditions {
+.form {
   text-align: center;
   border-radius: 4px;
   background: #edd;
   padding: 30px 0;
   margin: 20px 0;
-  dl {
-    margin: 20px 0;
-  }
-  dt {
-    font-weight: normal;
-    padding: 10px 0 4px;
+}
+.form__dl {
+  margin: 20px 0;
+}
+.form__dt {
+  font-weight: normal;
+  padding: 10px 0 4px;
+}
+.form__setting {
+  text-align: right;
+  padding: 0 20px;
+  button {
+    border: 1px solid #fff;
+    padding: 4px 20px;
+    border-radius: 4px;
+    font-size: 90%;
   }
 }
-.conditions__select {
+.form__select {
   position: relative;
   width: 240px;
   text-align: center;
@@ -58,7 +71,7 @@ body {
     }
   }
 }
-.conditions__input {
+.form__input {
   height: 2.4em;
   padding: 0 16px;
   border-radius: 4px;
@@ -69,10 +82,10 @@ body {
     box-shadow: 0 0 0 2px rgb(255, 133, 139) inset;
   }
 }
-.conditions__radio {
+.form__radio {
   padding: 0 4px;
 }
-.conditions__radio--input {
+.form__radio--input {
     position: absolute;
     white-space: nowrap;
     width: 1px;
@@ -85,7 +98,7 @@ body {
     margin: -1px;
 }
 
-.conditions__radio--span {
+.form__radio--span {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -101,7 +114,7 @@ body {
   }
 }
 
-.conditions__radio--input:checked + .conditions__radio--span:before {
+.form__radio--input:checked + .form__radio--span:before {
     border: 0.2em solid rgb(255, 133, 139);
 }
 
@@ -124,6 +137,51 @@ body {
     outline: 0;
     background-color: #000;
     border: 2px solid rgb(255, 133, 139);
+  }
+}
+
+
+.menuDetails {
+  background: #fff;
+  margin: 20px;
+  padding: 20px;
+}
+.menuDetails__dt {
+  background: #866363;
+  color: #fff;
+  padding: 4px;
+}
+.menuDetails__container {
+  padding: 20px 20px 0;
+  li {
+    border-top: 1px dashed #ddd;
+    padding: 10px;
+  }
+}
+
+
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+  tr:last-child {
+    border-bottom:solid 1px #ddd;
+  }
+  th {
+    text-align: center;
+    padding: 10px 0;
+    border-right:solid 1px #ddd;
+    border-left:solid 1px #ddd;
+    width: 30%;
+  }
+  td {
+    text-align: center;
+    padding: 7px 0;
+    border-right:solid 1px #ddd;
+    border-left:solid 1px #ddd;
+    width: 30%;
   }
 }
 

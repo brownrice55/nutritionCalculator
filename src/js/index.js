@@ -2,7 +2,6 @@
 
   'use strict';
 
-
   // Conditions
   const Conditions = function() {
     this.initialize.apply(this, arguments);
@@ -138,7 +137,6 @@
       return bmr/4.186;
     }
 
-
   };
 
 
@@ -154,6 +152,69 @@
 
   let conditions = new Conditions();
   conditions.run();
+
+  // Menus
+  const Menus = function() {
+    this.initialize.apply(this, arguments);
+  };
+
+
+  /// 初期化
+  Menus.prototype.initialize = function() {
+    this.dateEl = document.querySelector('.js-date');
+    this.menuBtnEl = document.querySelector('.js-menuBtn');
+    this.menuDdEls = document.querySelectorAll('.js-menu dd');
+    this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || [];
+    this.isTodaysMenuNext = JSON.parse(localStorage.getItem('isTodaysMenuNext')) || false;
+  };
+
+
+  /// 実行
+  Menus.prototype.run = function() {
+    this.setEvent();
+  };
+
+
+  ///　イベントを設定
+  Menus.prototype.setEvent = function() {
+    let menuSections = document.querySelectorAll('.js-menu');
+    if(this.isTodaysMenuNext.length) {
+      menuSections[0].classList.add('disp--none');
+      menuSections[1].classList.remove('disp--none');
+      this.showNextMenu();
+    }
+    else {
+      menuSections[0].classList.remove('disp--none');
+      menuSections[1].classList.add('disp--none');
+      this.menuBtnEl.addEventListener('click', this.setMenus.bind(this));
+    }
+  };
+
+  /// メニューを設定
+  Menus.prototype.setMenus = function() {
+    // メニュー
+    let menu = this.menuDdEls[0].children[0].children[0].value;
+
+    // いつ食べる？
+    let when = this.menuDdEls[1].children[0].children[0].value;
+
+    let today = document.querySelector('.js-date').dataset.date;
+
+    this.todaysMenuList += menu + ':' + when + ':' + today;
+
+    localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
+    localStorage.setItem('isTodaysMenuNext', JSON.stringify('true'));
+  };
+
+
+  /// 詳細入力のメニューを設定
+  Menus.prototype.showNextMenu = function() {
+
+  };
+
+
+  let menus = new Menus();
+  menus.run();
 
 
 }());
