@@ -26,6 +26,6 @@
 				<p>基礎代謝量の推定式は、<a href="https://www.mhlw.go.jp/stf/newpage_08517.html" target="_blank" rel="nofollow">「日本人の食事摂取基準（2020年版）」策定検討会報告書（PDF）</a>のp.72に記載の式を使わせていただいています。</p>
 			</footer>
 		</section>
-		<script src="dist/js/index.js"></script>
+		<script src="src/js/index.js"></script>
 	</body>
 </html>

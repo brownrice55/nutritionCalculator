@@ -209,7 +209,16 @@
 
   /// 詳細入力のメニューを設定
   Menus.prototype.showNextMenu = function() {
+    this.categoryMenuEls = document.querySelectorAll('.js-category');
+    this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
+    this.categoryMenuEls[0].children[0].addEventListener('change', this.changeSubCategory.bind(this));
+  };
 
+
+  /// 材料のサブカテゴリーを変更
+  Menus.prototype.changeSubCategory = function() {
+    let index = event.target.value;
+    this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[(index-1)];
   };
 
 

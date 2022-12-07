@@ -30,6 +30,9 @@
   <button type="submit" class="js-menuBtn condtions__btn">このメニューで設定する</button>
 </div>
 
+<?php
+  include 'script/func/_funcIngredients.php';
+?>
 
 <div class="form js-menu">
   <div class="form__setting">
@@ -49,15 +52,11 @@
   <dl class="form__dl">
     <dt class="form__dt">材料を選択してください。</dt>
     <dd>
-      <div class="form__select">
-        <select name="menu">
-          <option value="1">穀類</option>
-        </select>
+      <div class="form__select js-category">
+        <?php print getSelectCategory();?>
       </div>
-      <div class="form__select">
-        <select name="menu">
-          <option value="1">アマランサス</option>
-        </select>
+      <div class="form__select js-category">
+        <select name="menu"></select>
       </div>
     </dd>
   </dl>
@@ -114,6 +113,16 @@
     ?>
 
   </div>
+<script>
+let showOptionSubcategoryData = [];
+<?php
+  for($cnt=0;$cnt<18;++$cnt) {
+    print 'showOptionSubcategoryData[' . $cnt . '] = "' . getSelectSubcategory($cnt+1) . '";' . "\n";
+  }
+?>
+</script>
+
+  <?php //print getSelectSubcategory();?>
 
 
 </div>
