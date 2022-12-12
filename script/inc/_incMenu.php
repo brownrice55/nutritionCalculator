@@ -2,8 +2,8 @@
   $today = date('Y') . date('m') . date('d');
 ?>
 <div class="form js-menu">
-  <div class="form__menu">
-    <button class="js-settings">初期設定</button>
+  <div class="form__setting">
+    <button class="js-firstSettings">初期設定</button>
   </div>
 
   <h2 class="js-date" data-date ="<?php print $today; ?>"><?php print date("n");?>月<?php print date("j");?>日のメニュー</h2>
@@ -27,7 +27,7 @@
       </div>
     </dd>
   </dl class="form__dl">
-  <button type="submit" class="js-menuBtn condtions__btn">このメニューで設定する</button>
+  <button type="submit" class="js-menuBtn condtions__btn">このメニューを追加する</button>
 </div>
 
 <?php
@@ -36,32 +36,34 @@
 
 <div class="form js-menu">
   <div class="form__setting">
-    <button class="js-settings">初期設定</button>
+    <button class="js-firstSettings">初期設定</button>
   </div>
 
-  <dl class="form__dl">
-    <dt class="form__dt"><?php print date("n");?>月<?php print date("j");?>日のメニュー</dt>
-    <dd>
-      <div class="form__select">
-        <select name="menu">
-          <option value="1">野菜炒め（朝食）</option>
-        </select>
-      </div>
-    </dd>
-  </dl>
-  <dl class="form__dl">
-    <dt class="form__dt">材料を選択してください。</dt>
-    <dd>
-      <div class="form__select js-category">
-        <?php print getSelectCategory();?>
-      </div>
-      <div class="form__select js-category">
-        <select name="menu"></select>
-      </div>
-    </dd>
-  </dl>
-  <button type="submit" class="js-menuBtn condtions__btn">この材料を登録する</button>
-
+  <form>
+    <dl class="form__dl">
+      <dt class="form__dt"><?php print date("n");?>月<?php print date("j");?>日のメニュー</dt>
+      <dd>
+        <div class="form__select js-menuSetting">
+          <select name="menu">
+            <option value="1" selected>野菜炒め（朝食）</option>
+            <option value="addNewMenu">新しいメニューを追加する</option>
+          </select>
+        </div>
+      </dd>
+    </dl>
+    <dl class="form__dl">
+      <dt class="form__dt">材料を選択してください。</dt>
+      <dd>
+        <div class="form__select js-category">
+          <?php print getSelectCategory();?>
+        </div>
+        <div class="form__select js-category">
+          <select name="menu"></select>
+        </div>
+      </dd>
+    </dl>
+    <button type="submit" class="js-menuRegisterBtn condtions__btn">この材料を登録する</button>
+  </form>
 
   <dl class="menuDetails">
     <dt class="menuDetails__dt">朝食</dt>
@@ -121,8 +123,6 @@ let showOptionSubcategoryData = [];
   }
 ?>
 </script>
-
-  <?php //print getSelectSubcategory();?>
 
 
 </div>
