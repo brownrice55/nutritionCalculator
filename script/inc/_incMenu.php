@@ -3,14 +3,14 @@
 ?>
 <div class="form js-menu">
   <div class="form__setting">
-    <button class="js-firstSettings">初期設定</button>
+    <button class="js-toFirstSettings">初期設定</button>
   </div>
 
   <h2 class="js-date" data-date ="<?php print $today; ?>"><?php print date("n");?>月<?php print date("j");?>日のメニュー</h2>
 
   <dl class="form__dl">
     <dt class="form__dt">メニュー</dt>
-    <dd><div><input type="text" name="height" size="24" maxlength="30" class="form__input"><br>例）野菜炒め</div><small class="attention"></small></dd>
+    <dd><div><input type="text" name="height" size="24" maxlength="30" class="form__input"><br>例）野菜炒め</div><small class="js-attention"></small></dd>
   </dl>
   <dl class="form__dl">
     <dt class="form__dt">いつ食べましたか？</dt>
@@ -27,7 +27,7 @@
       </div>
     </dd>
   </dl class="form__dl">
-  <button type="submit" class="js-menuBtn condtions__btn">このメニューを追加する</button>
+  <button type="submit" class="js-menuBtn form__btn">このメニューを追加する</button>
 </div>
 
 <?php
@@ -36,7 +36,7 @@
 
 <div class="form js-menu">
   <div class="form__setting">
-    <button class="js-firstSettings">初期設定</button>
+    <button class="js-toFirstSettings">初期設定</button>
   </div>
 
   <form>
@@ -45,8 +45,7 @@
       <dd>
         <div class="form__select js-menuSetting">
           <select name="menu">
-            <option value="1" selected>野菜炒め（朝食）</option>
-            <option value="addNewMenu">新しいメニューを追加する</option>
+
           </select>
         </div>
       </dd>
@@ -62,7 +61,7 @@
         </div>
       </dd>
     </dl>
-    <button type="submit" class="js-menuRegisterBtn condtions__btn">この材料を登録する</button>
+    <button type="submit" class="js-menuRegisterBtn form__btn">この材料を登録する</button>
   </form>
 
   <dl class="menuDetails">

@@ -10,7 +10,7 @@
 		<section class="js-sections">
 		<?php
 			// 基本設定
-			include './script/inc/_incConditions.php';
+			include './script/inc/_incFirstSettings.php';
 		?>
 		</section>
 		<section class="js-sections">

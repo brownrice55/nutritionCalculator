@@ -2,48 +2,57 @@
 
   'use strict';
 
-  // Conditions
-  const Conditions = function() {
+  // FirstSettings
+  const FirstSettings = function() {
     this.initialize.apply(this, arguments);
   };
 
 
   /// 初期化
-  Conditions.prototype.initialize = function() {
-    this.condtionsDdEls = document.querySelectorAll('.js-conditions dd');
-    this.condtionsBtnEl = document.querySelector('.js-condtionsBtn');
+  FirstSettings.prototype.initialize = function() {
+    this.firstSettingsDdEls = document.querySelectorAll('.js-firstSettings dd');
+    this.firstSettingsBtnEl = document.querySelector('.js-firstSettingsBtn');
+    this.firstSettingsAttentionEls = document.querySelectorAll('.js-firstSettings .js-attention');
   };
 
 
   /// 実行
-  Conditions.prototype.run = function() {
+  FirstSettings.prototype.run = function() {
     this.setEvent();
   };
 
 
   ///　イベントを設定
-  Conditions.prototype.setEvent = function() {
+  FirstSettings.prototype.setEvent = function() {
 
-    this.condtionsBtnEl.addEventListener('click', this.getValue.bind(this));
+    this.firstSettingsBtnEl.addEventListener('click', this.getValue.bind(this));
 
   };
 
 
   ///　データの取得
-  Conditions.prototype.getValue = function() {
+  FirstSettings.prototype.getValue = function() {
 
-    let age = this.condtionsDdEls[0].children[0].children[0].value;
+    let age = this.firstSettingsDdEls[0].children[0].children[0].value;
+    let height = this.firstSettingsDdEls[2].children[0].children[0].value;
+    let weight = this.firstSettingsDdEls[3].children[0].children[0].value;
+    let attentionArray = [];
 
-    let genderEls = this.condtionsDdEls[1].querySelectorAll('input');
+    if(!age || !height || !weight) {
+      this.firstSettingsAttentionEls[0].innerHTML = (!age) ? '年齢を入力してください。' : '';
+      this.firstSettingsAttentionEls[1].innerHTML = (!height) ? '身長を入力してください。' : '';
+      this.firstSettingsAttentionEls[2].innerHTML = (!weight) ? '体重を入力してください。' : '';
+      return;
+    }
+
+    let genderEls = this.firstSettingsDdEls[1].querySelectorAll('input');
     let gender = this.getRadioValue(genderEls);
 
-    let height = this.condtionsDdEls[2].children[0].children[0].value;
-    let weight = this.condtionsDdEls[3].children[0].children[0].value;
 
-    let momentumEls = this.condtionsDdEls[4].querySelectorAll('input');
+    let momentumEls = this.firstSettingsDdEls[4].querySelectorAll('input');
     let momentum = this.getRadioValue(momentumEls);
 
-    let formula = this.condtionsDdEls[5].children[0].children[0].value;
+    let formula = this.firstSettingsDdEls[5].children[0].children[0].value;
 
     let bmrData = this.getBMR(formula, age, gender, height, weight);
     let amountOfEnergy = Math.round(bmrData * momentum);
@@ -53,11 +62,18 @@
     let sectionsEls = document.querySelectorAll('.js-sections');
     sectionsEls[0].classList.add('disp--none');
     sectionsEls[1].classList.remove('disp--none');
+
+    // フォームのvalueを初期値に戻しておく
+    this.firstSettingsDdEls[0].children[0].children[0].value = '';
+    this.firstSettingsDdEls[2].children[0].children[0].value = '';
+    this.firstSettingsDdEls[3].children[0].children[0].value = '';
+    this.firstSettingsDdEls[5].children[0].children[0].value = 1;
+
   };
 
 
   ///　推定式に当てはめて基礎代謝量を得る
-  Conditions.prototype.getBMR = function(aFormula, aAge, aGender, aHeight, aWeight) {
+  FirstSettings.prototype.getBMR = function(aFormula, aAge, aGender, aHeight, aWeight) {
 
     // 国立健康・栄養研究所
     // (0.0481×W+0.0234×H-0.0138×A-0.4235)×1,000/4.186
@@ -144,7 +160,7 @@
 
 
   ///　データの取得
-  Conditions.prototype.getRadioValue = function(aEls) {
+  FirstSettings.prototype.getRadioValue = function(aEls) {
     for(let cnt=0,len=aEls.length;cnt<len;++cnt) {
       if(aEls[cnt].checked) {
         return aEls[cnt].value;
@@ -165,10 +181,11 @@
     this.dateEl = document.querySelector('.js-date');
     this.menuDdEls = document.querySelectorAll('.js-menu dd');
     this.menuSections = document.querySelectorAll('.js-menu');
-    this.settingsBtnEls = document.querySelectorAll('.js-firstSettings');
+    this.toFirstSettingsBtnEls = document.querySelectorAll('.js-toFirstSettings');
     this.today = document.querySelector('.js-date').dataset.date;
-    this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || [];
+    this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || '';
     this.isTodaysMenu = JSON.parse(localStorage.getItem('isTodaysMenu')) || false;
+    this.whenArray = ['朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食'];
   };
 
 
@@ -194,24 +211,41 @@
 
     // メニュー
     let menu = this.menuDdEls[0].children[0].children[0].value;
+    let menuAttention = this.menuSections[0].querySelector('.js-attention');
+    if(!menu) {
+      menuAttention.innerHTML = 'メニュー名を入力してください。';
+      return;
+    }
 
     // いつ食べる？
     let when = this.menuDdEls[1].children[0].children[0].value;
 
-    let menuData = menu + ':' + this.today;
+    let menuData = menu + ':' + when + ':' + this.today;
 
-    if(this.todaysMenuList[(when-1)]==undefined || !this.todaysMenuList[(when-1)]) {
-      this.todaysMenuList[(when-1)] = '';
+
+    let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
+    let isNewMenu = true;
+
+    if(this.todaysMenuList) {
+      for(let cnt=0,len=getTodaysMenuListArray.length;cnt<len;++cnt) {
+        if(menuData==getTodaysMenuListArray[cnt]) {
+          isNewMenu = false;
+        }
+      }
     }
-    if(this.todaysMenuList[(when-1)]) {
-      this.todaysMenuList[(when-1)] += '&';
+
+    if(isNewMenu) {
+      if(this.todaysMenuList) {
+        this.todaysMenuList += '&';
+      }
+      this.todaysMenuList += menuData;
     }
-    this.todaysMenuList[(when-1)] += menuData;
 
     localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
     localStorage.setItem('isTodaysMenu', JSON.stringify('true'));
 
     this.menuDdEls[0].children[0].children[0].value = '';
+    menuAttention.innerHTML = '';
     this.show2ndMenu();
     event.stopImmediatePropagation();
 
@@ -236,7 +270,7 @@
 
     let menuBtnEl = document.querySelector('.js-menuBtn');
     menuBtnEl.addEventListener('click', this.setMenus.bind(this));
-    this.settingsBtnEls[0].addEventListener('click',this.showFirstSettings.bind(this));
+    this.toFirstSettingsBtnEls[0].addEventListener('click',this.showFirstSettings.bind(this));
 
   };
 
@@ -246,13 +280,26 @@
 
     this.menuSections[0].classList.add('disp--none');
     this.menuSections[1].classList.remove('disp--none');
-    this.settingsBtnEls[1].addEventListener('click',this.showFirstSettings.bind(this));
+    this.toFirstSettingsBtnEls[1].addEventListener('click',this.showFirstSettings.bind(this));
 
     this.categoryMenuEls = document.querySelectorAll('.js-category');
     this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
     this.categoryMenuEls[0].children[0].addEventListener('change', this.changeSubCategory.bind(this));
 
-    let menuSettingEl = document.querySelector('.js-menuSetting');
+    let todaysMenuListArray = [];
+    let showTodaysMenuListArray = '';
+    let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
+
+    for(let cnt=0,len=getTodaysMenuListArray.length;cnt<len;++cnt) {
+      todaysMenuListArray = getTodaysMenuListArray[cnt].split(':');
+      showTodaysMenuListArray += '<option value="' + (cnt+1) + '" selected>' + todaysMenuListArray[0] + '（' + this.whenArray[(todaysMenuListArray[1]-1)] + '）</option>';
+    }
+    showTodaysMenuListArray += '<option value="addNewMenu">新しいメニューを追加する</option>';
+
+
+    // 前の画面で入力したメニューを設定
+    let menuSettingEl = document.querySelector('.js-menuSetting select');
+    menuSettingEl.innerHTML = showTodaysMenuListArray;
     menuSettingEl.addEventListener('change', this.addNewMenu.bind(this));
 
     // 栄養素データを更新する
@@ -288,7 +335,7 @@
   window.addEventListener('DOMContentLoaded', function() {
 
     let sectionsEls = document.querySelectorAll('.js-sections');
-    let amountOfEnergy = JSON.parse(localStorage.getItem('amountOfEnergy')) || [];
+    let amountOfEnergy = JSON.parse(localStorage.getItem('amountOfEnergy')) || '';
 
     if(amountOfEnergy) {
       sectionsEls[0].classList.add('disp--none');
@@ -301,8 +348,8 @@
 
     let menus = new Menus();
     menus.run();
-    let conditions = new Conditions();
-    conditions.run();
+    let firstSettings = new FirstSettings();
+    firstSettings.run();
 
   });
 

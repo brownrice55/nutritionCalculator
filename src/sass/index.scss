@@ -17,6 +17,9 @@ body {
   background: #edd;
   padding: 30px 0;
   margin: 20px 0;
+  small {
+    color: #c00;
+  }
 }
 .form__dl {
   margin: 20px 0;
@@ -118,7 +121,7 @@ body {
     border: 0.2em solid rgb(255, 133, 139);
 }
 
-.condtions__btn {
+.form__btn {
   display: inline-block;
   width: 240px;
   padding: 8px;
