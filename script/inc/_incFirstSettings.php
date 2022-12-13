@@ -2,7 +2,12 @@
   <h2>基本情報</h2>
   <dl class="form__dl">
     <dt>年齢</dt>
-    <dd><div><input type="text" name="age" size="10" maxlength="5" class="form__input"> 歳</div><small class="js-attention"></small></dd>
+    <dd>
+      <div>
+        <input type="text" name="age" size="10" maxlength="5" class="form__input"> 歳
+      </div>
+      <small class="js-attention"></small>
+    </dd>
   </dl>
   <dl class="form__dl">
     <dt>性別</dt>
@@ -23,11 +28,21 @@
   </dl>
   <dl class="form__dl">
     <dt>身長</dt>
-    <dd><div><input type="text" name="height" size="10" maxlength="5" class="form__input"> cm</div><small class="js-attention"></small></dd>
+    <dd>
+      <div>
+        <input type="text" name="height" size="10" maxlength="5" class="form__input"> cm
+      </div>
+      <small class="js-attention"></small>
+    </dd>
   </dl>
   <dl class="form__dl">
     <dt>体重</dt>
-    <dd><div><input type="text" name="weight" size="10" maxlength="5" class="form__input"> kg</div><small class="js-attention"></small></dd>
+    <dd>
+      <div>
+        <input type="text" name="weight" size="10" maxlength="5" class="form__input"> kg
+      </div>
+      <small class="js-attention"></small>
+    </dd>
   </dl>
   <dl class="form__dl">
     <dt>運動量</dt>

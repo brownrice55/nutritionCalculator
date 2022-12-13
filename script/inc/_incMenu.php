@@ -1,5 +1,5 @@
 <?php
-  $today = date('Y') . date('m') . date('d');
+  $today = date('Y') . '/' . date('n') . '/' . date('j');
 ?>
 <div class="form js-menu">
   <div class="form__setting">

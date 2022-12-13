@@ -182,9 +182,7 @@
     this.menuDdEls = document.querySelectorAll('.js-menu dd');
     this.menuSections = document.querySelectorAll('.js-menu');
     this.toFirstSettingsBtnEls = document.querySelectorAll('.js-toFirstSettings');
-    this.today = document.querySelector('.js-date').dataset.date;
     this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || '';
-    this.isTodaysMenu = JSON.parse(localStorage.getItem('isTodaysMenu')) || false;
     this.whenArray = ['朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食'];
   };
 
@@ -197,11 +195,38 @@
 
   ///　イベントを設定
   Menus.prototype.setEvent = function() {
-    if(this.isTodaysMenu) {//次の画面
+    this.setStorage();
+    if(this.todaysMenuList) {//次の画面
       this.show2ndMenu();
     }
     else {//最初の画面
       this.show1stMenu();
+    }
+  };
+
+
+  /// ローカルストレージのセット
+  Menus.prototype.setStorage = function() {
+
+    let weeklyMenuList = JSON.parse(localStorage.getItem('weeklyMenuList')) || [];
+    let today = new Date(document.querySelector('.js-date').dataset.date);
+    this.todayMs = today.getTime();
+
+    let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
+    let todaysMenuListArray = getTodaysMenuListArray[0].split(':');
+    let diffMs = this.todayMs - todaysMenuListArray[2];
+
+    // 今日のデータではない時
+    if(todaysMenuListArray[2]!=this.todayMs) {
+
+      //1週間以内の時はweekのローカルストレージに格納
+      if(diffMs<604800000) {
+        weeklyMenuList.push(this.todaysMenuList);
+        localStorage.setItem('weeklyMenuList', JSON.stringify(weeklyMenuList));
+      }
+
+      // 今日のストレージは空にしておく
+      localStorage.setItem('todaysMenuList', JSON.stringify(''));
     }
   };
 
@@ -220,7 +245,7 @@
     // いつ食べる？
     let when = this.menuDdEls[1].children[0].children[0].value;
 
-    let menuData = menu + ':' + when + ':' + this.today;
+    let menuData = menu + ':' + when + ':' + this.todayMs;
 
 
     let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
@@ -242,7 +267,6 @@
     }
 
     localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
-    localStorage.setItem('isTodaysMenu', JSON.stringify('true'));
 
     this.menuDdEls[0].children[0].children[0].value = '';
     menuAttention.innerHTML = '';
