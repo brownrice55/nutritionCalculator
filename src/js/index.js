@@ -27,6 +27,9 @@
 
     this.firstSettingsBtnEl.addEventListener('click', this.getValue.bind(this));
 
+    let toMenuBtn = document.querySelector('.js-toMenu');
+    toMenuBtn.addEventListener('click', this.backToMenu.bind(this));
+
   };
 
 
@@ -169,6 +172,13 @@
   };
 
 
+  ///　元の画面に戻るのボタンの設定
+  FirstSettings.prototype.backToMenu = function() {
+    let sectionsEls = document.querySelectorAll('.js-sections');
+    sectionsEls[0].classList.add('disp--none');
+    sectionsEls[1].classList.remove('disp--none');
+  };
+
 
   /// Menus
   const Menus = function() {
@@ -196,11 +206,15 @@
   ///　イベントを設定
   Menus.prototype.setEvent = function() {
     this.setStorage();
+    this.backTo2ndMenuBtnEl = document.querySelector('.js-backTo2ndMenuBtn');
     if(this.todaysMenuList) {//次の画面
       this.show2ndMenu();
+      // 入力画面から詳細メニューに戻るボタン
+      this.backTo2ndMenuBtnEl.classList.remove('disp--none');
     }
     else {//最初の画面
       this.show1stMenu();
+      this.backTo2ndMenuBtnEl.classList.add('disp--none');
     }
   };
 
@@ -228,6 +242,17 @@
       // 今日のストレージは空にしておく
       localStorage.setItem('todaysMenuList', JSON.stringify(''));
     }
+
+    let toWeeklyMenuEls = document.querySelectorAll('.js-toWeeklyMenu');
+    for(let cnt=0,len=toWeeklyMenuEls.length;cnt<len;++cnt) {
+      if(weeklyMenuList.length) {
+        toWeeklyMenuEls[cnt].classList.remove('disp--none');
+      }
+      else {
+        toWeeklyMenuEls[cnt].classList.add('disp--none');
+      }
+    }
+
   };
 
 
@@ -296,6 +321,7 @@
     menuBtnEl.addEventListener('click', this.setMenus.bind(this));
     this.toFirstSettingsBtnEls[0].addEventListener('click',this.showFirstSettings.bind(this));
 
+    this.backTo2ndMenuBtnEl.addEventListener('click', this.show2ndMenu.bind(this));
   };
 
 
@@ -339,6 +365,7 @@
     if(value=='addNewMenu') {
       event.target.selectedIndex = 0;
       this.show1stMenu();
+      this.backTo2ndMenuBtnEl.classList.remove('disp--none');
     }
   };
 
@@ -359,15 +386,18 @@
   window.addEventListener('DOMContentLoaded', function() {
 
     let sectionsEls = document.querySelectorAll('.js-sections');
+    let toMenuBtnEl = document.querySelector('.js-toMenu');
     let amountOfEnergy = JSON.parse(localStorage.getItem('amountOfEnergy')) || '';
 
     if(amountOfEnergy) {
       sectionsEls[0].classList.add('disp--none');
       sectionsEls[1].classList.remove('disp--none');
+      toMenuBtnEl.classList.remove('disp--none');
     }
     else {
       sectionsEls[0].classList.remove('disp--none');
       sectionsEls[1].classList.add('disp--none');
+      toMenuBtnEl.classList.add('disp--none');
     }
 
     let menus = new Menus();
@@ -376,6 +406,5 @@
     firstSettings.run();
 
   });
-
 
 }());

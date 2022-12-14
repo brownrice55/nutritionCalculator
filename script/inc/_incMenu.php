@@ -2,14 +2,11 @@
   $today = date('Y') . '/' . date('n') . '/' . date('j');
 ?>
 <div class="form js-menu">
-  <div class="form__setting">
-    <button class="js-toFirstSettings">初期設定</button>
-  </div>
-
-  <h2 class="js-date" data-date ="<?php print $today; ?>"><?php print date("n");?>月<?php print date("j");?>日のメニュー</h2>
-
+  <?php
+    include './script/inc/_incMenuHeader.php';
+  ?>
   <dl class="form__dl">
-    <dt class="form__dt">メニュー</dt>
+    <dt class="form__dt">メニューを入力してください。</dt>
     <dd><div><input type="text" name="height" size="24" maxlength="30" class="form__input"><br>例）野菜炒め</div><small class="js-attention"></small></dd>
   </dl>
   <dl class="form__dl">
@@ -28,6 +25,7 @@
     </dd>
   </dl class="form__dl">
   <button type="submit" class="js-menuBtn form__btn">このメニューを追加する</button>
+  <button type="submit" class="js-backTo2ndMenuBtn form__btn--small">メニューを追加しない</button>
 </div>
 
 <?php
@@ -35,13 +33,13 @@
 ?>
 
 <div class="form js-menu">
-  <div class="form__setting">
-    <button class="js-toFirstSettings">初期設定</button>
-  </div>
+  <?php
+    include './script/inc/_incMenuHeader.php';
+  ?>
 
   <form>
     <dl class="form__dl">
-      <dt class="form__dt"><?php print date("n");?>月<?php print date("j");?>日のメニュー</dt>
+      <dt class="form__dt">メニューを選択してください。</dt>
       <dd>
         <div class="form__select js-menuSetting">
           <select name="menu">

@@ -1,4 +1,8 @@
 <div class="form js-firstSettings">
+  <div class="form__setting">
+    <button class="js-toMenu">元の画面に戻る</button>
+  </div>
+
   <h2>基本情報</h2>
   <dl class="form__dl">
     <dt>年齢</dt>
