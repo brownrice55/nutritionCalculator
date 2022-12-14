@@ -24,7 +24,7 @@
       </div>
     </dd>
   </dl class="form__dl">
-  <button type="submit" class="js-menuBtn form__btn">このメニューを追加する</button>
+  <button type="submit" class="js-menuBtn form__btn">このメニューを追加する</button><br>
   <button type="submit" class="js-backTo2ndMenuBtn form__btn--small">メニューを追加しない</button>
 </div>
 
@@ -59,6 +59,12 @@
         </div>
       </dd>
     </dl>
+
+    <dl class="form__dl">
+      <dt class="form__dt">分量を入力してください。</dt>
+      <dd><div><input type="text" name="ingredientsWeight" size="10" maxlength="30" class="form__input">　g</div><small class="js-attention"></small></dd>
+    </dl>
+
     <button type="submit" class="js-menuRegisterBtn form__btn">この材料を登録する</button>
   </form>
 

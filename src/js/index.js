@@ -41,12 +41,15 @@
     let weight = this.firstSettingsDdEls[3].children[0].children[0].value;
     let attentionArray = [];
 
-    if(!age || !height || !weight) {
-      this.firstSettingsAttentionEls[0].innerHTML = (!age) ? '年齢を入力してください。' : '';
-      this.firstSettingsAttentionEls[1].innerHTML = (!height) ? '身長を入力してください。' : '';
-      this.firstSettingsAttentionEls[2].innerHTML = (!weight) ? '体重を入力してください。' : '';
+    let checkInputedArray = [];
+    checkInputedArray[0] = [age, height, weight];
+    checkInputedArray[1] = ['年齢', '身長', '体重'];
+    let errorCnt = this.checkInputedData(checkInputedArray);
+
+    if(errorCnt) {
       return;
     }
+
 
     let genderEls = this.firstSettingsDdEls[1].querySelectorAll('input');
     let gender = this.getRadioValue(genderEls);
@@ -71,6 +74,33 @@
     this.firstSettingsDdEls[2].children[0].children[0].value = '';
     this.firstSettingsDdEls[3].children[0].children[0].value = '';
     this.firstSettingsDdEls[5].children[0].children[0].value = 1;
+
+  };
+
+
+  ///　初期設定の入力チェック
+  FirstSettings.prototype.checkInputedData = function(aArray) {
+
+    let errorCnt = 0
+    for(let cnt=0,len=aArray[0].length;cnt<len;++cnt) {
+      if(!aArray[0][cnt]) {
+        this.firstSettingsAttentionEls[cnt].innerHTML = aArray[1][cnt] + 'を入力してください。';
+        errorCnt++;
+      }
+      else if(isNaN(aArray[0][cnt])) {
+        this.firstSettingsAttentionEls[cnt].innerHTML = '半角数字で入力してください。';
+        errorCnt++;
+      }
+      else {
+        this.firstSettingsAttentionEls[cnt].innerHTML = '';
+      }
+    }
+
+    if(aArray[0][0]<18) {
+      this.firstSettingsAttentionEls[0].innerHTML = '18歳以上が対象です。';
+    }
+
+    return errorCnt;
 
   };
 
@@ -207,6 +237,12 @@
   Menus.prototype.setEvent = function() {
     this.setStorage();
     this.backTo2ndMenuBtnEl = document.querySelector('.js-backTo2ndMenuBtn');
+    this.selectMenuPanel();
+  };
+
+
+  /// メニュー画面の選択
+  Menus.prototype.selectMenuPanel = function() {
     if(this.todaysMenuList) {//次の画面
       this.show2ndMenu();
       // 入力画面から詳細メニューに戻るボタン
@@ -217,7 +253,6 @@
       this.backTo2ndMenuBtnEl.classList.add('disp--none');
     }
   };
-
 
   /// ローカルストレージのセット
   Menus.prototype.setStorage = function() {
@@ -231,7 +266,7 @@
     let diffMs = this.todayMs - todaysMenuListArray[2];
 
     // 今日のデータではない時
-    if(todaysMenuListArray[2]!=this.todayMs) {
+    if(parseInt(todaysMenuListArray[2])!==this.todayMs) {
 
       //1週間以内の時はweekのローカルストレージに格納
       if(diffMs<604800000) {
@@ -252,6 +287,12 @@
         toWeeklyMenuEls[cnt].classList.add('disp--none');
       }
     }
+
+    toWeeklyMenuEls.forEach((elm) => {
+      if(elm) {
+        elm.addEventListener('click', this.showWeeklyMenu.bind(this));
+      }
+    });
 
   };
 
@@ -316,6 +357,7 @@
 
     this.menuSections[0].classList.remove('disp--none');
     this.menuSections[1].classList.add('disp--none');
+    this.menuSections[2].classList.add('disp--none');
 
     let menuBtnEl = document.querySelector('.js-menuBtn');
     menuBtnEl.addEventListener('click', this.setMenus.bind(this));
@@ -330,6 +372,7 @@
 
     this.menuSections[0].classList.add('disp--none');
     this.menuSections[1].classList.remove('disp--none');
+    this.menuSections[2].classList.add('disp--none');
     this.toFirstSettingsBtnEls[1].addEventListener('click',this.showFirstSettings.bind(this));
 
     this.categoryMenuEls = document.querySelectorAll('.js-category');
@@ -367,6 +410,21 @@
       this.show1stMenu();
       this.backTo2ndMenuBtnEl.classList.remove('disp--none');
     }
+  };
+
+
+  /// 過去1週間のメニューを表示
+  Menus.prototype.showWeeklyMenu = function() {
+
+    this.menuSections[0].classList.add('disp--none');
+    this.menuSections[1].classList.add('disp--none');
+    this.menuSections[2].classList.remove('disp--none');
+
+    this.toFirstSettingsBtnEls[2].addEventListener('click',this.showFirstSettings.bind(this));
+
+    let toMenusBtnEl = document.querySelector('.js-toMenus');
+    toMenusBtnEl.addEventListener('click', this.selectMenuPanel.bind(this));
+
   };
 
 

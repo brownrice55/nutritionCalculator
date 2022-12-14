@@ -19,6 +19,12 @@
 			include './script/inc/_incMenu.php';
 		?>
 		</section>
+		<section class="js-sections">
+		<?php
+			// 過去１週間の表示
+			include './script/inc/_incWeekly.php';
+		?>
+		</section>
 		<footer class="footer">
 			<p>このアプリの制作者は、医療や栄養学の専門家ではありません。</p>
 			<p>18歳以上が対象です。妊婦さんやご病気の方などは、お医者さんなどの専門家の指示の従ってください。</p>
