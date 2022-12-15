@@ -222,7 +222,7 @@
     this.menuDdEls = document.querySelectorAll('.js-menu dd');
     this.menuSections = document.querySelectorAll('.js-menu');
     this.toFirstSettingsBtnEls = document.querySelectorAll('.js-toFirstSettings');
-    this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || '';
+    this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || [];
     this.whenArray = ['朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食'];
   };
 
@@ -243,7 +243,7 @@
 
   /// メニュー画面の選択
   Menus.prototype.selectMenuPanel = function() {
-    if(this.todaysMenuList) {//次の画面
+    if(this.todaysMenuList.length) {//次の画面
       this.show2ndMenu();
       // 入力画面から詳細メニューに戻るボタン
       this.backTo2ndMenuBtnEl.classList.remove('disp--none');
@@ -257,30 +257,39 @@
   /// ローカルストレージのセット
   Menus.prototype.setStorage = function() {
 
-    let weeklyMenuList = JSON.parse(localStorage.getItem('weeklyMenuList')) || [];
+    let weeklyMenuListArray = JSON.parse(localStorage.getItem('weeklyMenuList')) || [];
     let today = new Date(document.querySelector('.js-date').dataset.date);
     this.todayMs = today.getTime();
+    let diffMs = 0;
 
-    let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
-    let todaysMenuListArray = getTodaysMenuListArray[0].split(':');
-    let diffMs = this.todayMs - todaysMenuListArray[2];
+    // weeklyMenuListArrayの古いデータ（１週間以上前）は破棄する
+    // 今日以外であればpushして、最後にweeklyMenuListArrayのデータをまとめて全部チェックする
 
-    // 今日のデータではない時
-    if(parseInt(todaysMenuListArray[2])!==this.todayMs) {
+    if(this.todaysMenuList.length) {
+      diffMs = this.todayMs - this.todaysMenuList[0][2];
 
-      //1週間以内の時はweekのローカルストレージに格納
-      if(diffMs<604800000) {
-        weeklyMenuList.push(this.todaysMenuList);
-        localStorage.setItem('weeklyMenuList', JSON.stringify(weeklyMenuList));
+      // 今日のデータではない時
+      if(diffMs) {
+        weeklyMenuListArray.push(this.todaysMenuList);
+        // 今日のストレージは空にしておく
+        localStorage.setItem('todaysMenuList', JSON.stringify(''));
       }
 
-      // 今日のストレージは空にしておく
-      localStorage.setItem('todaysMenuList', JSON.stringify(''));
     }
+
+    // weeklyMenuListArrayの全部のデータをチェックして、1週間以内の時はweeklyのローカルストレージに格納
+    for(let cnt=0,len=weeklyMenuListArray.length;cnt<len;++cnt) {
+      diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
+      if(diffMs>604800000) {
+        weeklyMenuListArray.splice(cnt,1);
+      }
+    }
+
+    localStorage.setItem('weeklyMenuList', JSON.stringify(weeklyMenuListArray));
 
     let toWeeklyMenuEls = document.querySelectorAll('.js-toWeeklyMenu');
     for(let cnt=0,len=toWeeklyMenuEls.length;cnt<len;++cnt) {
-      if(weeklyMenuList.length) {
+      if(weeklyMenuListArray.length) {
         toWeeklyMenuEls[cnt].classList.remove('disp--none');
       }
       else {
@@ -311,26 +320,27 @@
     // いつ食べる？
     let when = this.menuDdEls[1].children[0].children[0].value;
 
-    let menuData = menu + ':' + when + ':' + this.todayMs;
+    let menuData = [menu,when,this.todayMs,1];
 
-
-    let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
     let isNewMenu = true;
 
-    if(this.todaysMenuList) {
-      for(let cnt=0,len=getTodaysMenuListArray.length;cnt<len;++cnt) {
-        if(menuData==getTodaysMenuListArray[cnt]) {
+    if(this.todaysMenuList.length) {
+      for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
+        this.todaysMenuList[cnt][3] = 0;
+        if(menuData[0]==this.todaysMenuList[cnt][0] && menuData[1]==this.todaysMenuList[cnt][1] && menuData[2]==this.todaysMenuList[cnt][2]) {
           isNewMenu = false;
         }
       }
     }
 
     if(isNewMenu) {
-      if(this.todaysMenuList) {
-        this.todaysMenuList += '&';
-      }
-      this.todaysMenuList += menuData;
+      this.todaysMenuList.push(menuData);
     }
+
+    // this.todaysMenuListを配列に変換してソート
+    this.todaysMenuList.sort( (a, b) => {
+      return a[1] - b[1];
+    });
 
     localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
 
@@ -379,13 +389,13 @@
     this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
     this.categoryMenuEls[0].children[0].addEventListener('change', this.changeSubCategory.bind(this));
 
-    let todaysMenuListArray = [];
     let showTodaysMenuListArray = '';
-    let getTodaysMenuListArray = String(this.todaysMenuList).split('&');
+    let selected = '';
 
-    for(let cnt=0,len=getTodaysMenuListArray.length;cnt<len;++cnt) {
-      todaysMenuListArray = getTodaysMenuListArray[cnt].split(':');
-      showTodaysMenuListArray += '<option value="' + (cnt+1) + '" selected>' + todaysMenuListArray[0] + '（' + this.whenArray[(todaysMenuListArray[1]-1)] + '）</option>';
+    for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
+      selected = (this.todaysMenuList[cnt][3]) ? ' selected' : '';
+
+      showTodaysMenuListArray += '<option value="' + (cnt+1) + '"' + selected + '>' + this.todaysMenuList[cnt][0] + '（' + this.whenArray[(this.todaysMenuList[cnt][1]-1)] + '）</option>';
     }
     showTodaysMenuListArray += '<option value="addNewMenu">新しいメニューを追加する</option>';
 

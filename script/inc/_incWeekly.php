@@ -1,8 +1,8 @@
 <div class="form js-menu">
 
   <div class="form__setting">
-    <button class="js-toFirstSettings">初期設定</button>
     <button class="js-toMenus">今日のメニュー</button>
+    <button class="js-toFirstSettings">初期設定</button>
   </div>
 
   <h2 class="h2Title js-date" data-date ="<?php print $today; ?>"><?php print date("n");?>月<?php print date("j");?>日〜<?php print date("n");?>月<?php print date("j");?>日のメニュー</h2>
