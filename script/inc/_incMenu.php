@@ -42,9 +42,7 @@
       <dt class="form__dt">メニューを選択してください。</dt>
       <dd>
         <div class="form__select js-menuSetting">
-          <select name="menu">
-
-          </select>
+          <select name="todaysMenu"></select>
         </div>
       </dd>
     </dl>
@@ -55,69 +53,26 @@
           <?php print getSelectCategory();?>
         </div>
         <div class="form__select js-category">
-          <select name="menu"></select>
+          <select name="subCategory"></select>
         </div>
       </dd>
     </dl>
 
     <dl class="form__dl">
       <dt class="form__dt">分量を入力してください。</dt>
-      <dd><div><input type="text" name="ingredientsWeight" size="10" maxlength="30" class="form__input">　g</div><small class="js-attention"></small></dd>
+      <dd>
+        <div class="js-ingredientsWeight">
+          <input type="text" name="ingredientsWeight" size="10" maxlength="30" class="form__input">　g<br><small class="js-attention"></small>
+        </div>
+      </dd>
     </dl>
 
     <button type="submit" class="js-menuRegisterBtn form__btn">この材料を登録する</button>
   </form>
 
-  <dl class="menuDetails">
-    <dt class="menuDetails__dt">朝食</dt>
-    <dd>
-      <div class="menuDetails__container">
-        <p>野菜炒め</p>
-        <ul>
-          <li>キャベツ<br>
-            <small>（カリウム：10g）</small>
-          </li>
-          <li>玉ねぎ</li>
-          <li>ニンジン</li>
-        </ul>
-      </div>
-      <div class="menuDetails__container">
-        <p>ご飯</p>
-        <ul>
-          <li style="border-top:1px dashed #ddd;">玄米ご飯</li>
-        </ul>
-      </div>
-    </dd>
-  </dl>
 
-  <dl class="menuDetails">
-    <dt class="menuDetails__dt">ブランチ</dt>
-    <dd>
-      <div class="menuDetails__container">
-        <p>野菜炒め</p>
-        <ul>
-          <li>キャベツ</li>
-          <li>玉ねぎ</li>
-          <li>ニンジン</li>
-        </ul>
-      </div>
-      <div class="menuDetails__container">
-        <p>ご飯</p>
-        <ul>
-          <li>玄米ご飯</li>
-        </ul>
-      </div>
-    </dd>
-  </dl>
+  <div class="js-nutritionDataResult"></div>
 
-  <div style="background:#fff; margin:20px;">
-
-    <?php
-      // 基本設定
-      include './script/inc/_incTable.php';
-    ?>
-
-  </div>
 <script>
 let showOptionSubcategoryData = [];
 <?php

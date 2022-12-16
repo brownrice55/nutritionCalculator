@@ -219,8 +219,8 @@
   /// 初期化
   Menus.prototype.initialize = function() {
     this.dateEl = document.querySelector('.js-date');
-    this.menuDdEls = document.querySelectorAll('.js-menu dd');
     this.menuSections = document.querySelectorAll('.js-menu');
+    this.menuDdEls = this.menuSections[0].querySelectorAll('dd');
     this.toFirstSettingsBtnEls = document.querySelectorAll('.js-toFirstSettings');
     this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || [];
     this.whenArray = ['朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食'];
@@ -327,6 +327,9 @@
     if(this.todaysMenuList.length) {
       for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
         this.todaysMenuList[cnt][3] = 0;
+        if(!this.todaysMenuList[cnt][4]) {
+          this.todaysMenuList[cnt][4] = '';
+        }
         if(menuData[0]==this.todaysMenuList[cnt][0] && menuData[1]==this.todaysMenuList[cnt][1] && menuData[2]==this.todaysMenuList[cnt][2]) {
           isNewMenu = false;
         }
@@ -395,7 +398,7 @@
     for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
       selected = (this.todaysMenuList[cnt][3]) ? ' selected' : '';
 
-      showTodaysMenuListArray += '<option value="' + (cnt+1) + '"' + selected + '>' + this.todaysMenuList[cnt][0] + '（' + this.whenArray[(this.todaysMenuList[cnt][1]-1)] + '）</option>';
+      showTodaysMenuListArray += '<option value="' + this.todaysMenuList[cnt][0] + '-' + cnt + '"' + selected + ' data-index=' + cnt + '>' + this.todaysMenuList[cnt][0] + '（' + this.whenArray[(this.todaysMenuList[cnt][1]-1)] + '）</option>';
     }
     showTodaysMenuListArray += '<option value="addNewMenu">新しいメニューを追加する</option>';
 
@@ -440,6 +443,56 @@
 
   /// 栄養素データなどを取得
   Menus.prototype.getNutrientsData = function() {
+
+    event.preventDefault();
+
+    let ingredientsWeightEl = document.querySelector('.js-ingredientsWeight');
+
+    if(!ingredientsWeightEl.children[0].value) {
+      ingredientsWeightEl.children[2].innerHTML = '分量を入力してください。';
+      return;
+    }
+    else if(isNaN(ingredientsWeightEl.children[0].value)) {
+      ingredientsWeightEl.children[2].innerHTML = '半角数字で入力してください。';
+      return;
+    }
+    else {
+
+      // PHPで計算して返す
+      let result = document.querySelector('.js-nutritionDataResult');
+
+      let menuSettingEl = document.querySelector('.js-menuSetting select');
+
+      // ローカルストレージの今日のデータを全部渡す
+      // データが無い時は（[4]が空の時）、削除しますか？の表示を出す　***後で
+
+      let menuIndex = String(menuSettingEl.value).split('-')[1];
+      console.log(menuIndex);
+      let array4Data = (this.todaysMenuList[menuIndex][4]) ? this.todaysMenuList[menuIndex][4] + '_' : '';
+      array4Data += this.categoryMenuEls[0].children[0].value + '-' + this.categoryMenuEls[1].children[0].value + '-' + ingredientsWeightEl.children[0].value;
+      this.todaysMenuList[menuIndex][4] = array4Data;
+
+      localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
+
+      let xhr = new XMLHttpRequest();
+      let sendPath = 'todaysMenu=' + this.todaysMenuList;
+
+      xhr.open('POST', '/addMenus.php');
+      xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+      xhr.send(sendPath);
+
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState===4 && xhr.status===200) {
+          result.innerHTML = xhr.responseText;
+          ingredientsWeightEl.children[0].value = '';
+        }
+      }
+      this.categoryMenuEls[0].children[0].value = 1;
+      event.stopImmediatePropagation();
+
+    }
+
 
   };
 
