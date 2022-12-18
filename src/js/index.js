@@ -467,7 +467,6 @@
       // データが無い時は（[4]が空の時）、削除しますか？の表示を出す　***後で
 
       let menuIndex = String(menuSettingEl.value).split('-')[1];
-      console.log(menuIndex);
       let array4Data = (this.todaysMenuList[menuIndex][4]) ? this.todaysMenuList[menuIndex][4] + '_' : '';
       array4Data += this.categoryMenuEls[0].children[0].value + '-' + this.categoryMenuEls[1].children[0].value + '-' + ingredientsWeightEl.children[0].value;
       this.todaysMenuList[menuIndex][4] = array4Data;
@@ -488,7 +487,9 @@
           ingredientsWeightEl.children[0].value = '';
         }
       }
+
       this.categoryMenuEls[0].children[0].value = 1;
+      this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
       event.stopImmediatePropagation();
 
     }

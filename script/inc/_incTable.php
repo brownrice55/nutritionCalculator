@@ -7,41 +7,22 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th>摂取エネルギー</th>
-    <td>kcal</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>たんぱく質</th>
-    <td>g</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>脂質</th>
-    <td>g</td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>炭水化物</th>
-    <td>g</td>
-    <td></td>
-  </tr>
 
 <?php
-	$tableTitleArray = array('食塩又は食塩相当量','ビタミンA<br>（レチノール活性当量）','ビタミンC','ビタミンD','ビタミンE','カルシウム','マグネシウム','鉄','ヨウ素','葉酸',
-		'ビタミンB1','ビタミンB2','ビタミンB6','ビタミンB12','食物繊維','カリウム');
-	$tableTodayArray = array('salt','vitaminA','vitaminC','vitaminD','vitaminE','ca','mg','fe','iodine','folicacid','vitaminB1','vitaminB2','vitaminB6','vitaminB12','dietaryfiber','k');
-	$tableUnitArray = array('g','μg','mg','μg','mg','mg','mg','mg','μg','μg','mg','mg','mg','μg','g','mg');
+  include './script/inc/_incArray.php';
 	$showResultTableData = '';
+  $referenceUrlHead = '<a href="https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=';
+	$referenceUrlFoot = '" target="_bank" rel="nofollow">厚生労働省「日本人の食事摂取基準（2020年版）」</a>P.';
 
-	for($cnt=0;$cnt<15;++$cnt) {
-		$showResultTableData .= '<tr>
-		<th>' . $tableTitleArray[$cnt] . '</th>
-		<td>' . $tableUnitArray[$cnt] . '</td>';
-		$showResultTableData .= '</td></tr>';
-	}
-	print $showResultTableData;
+  for($cnt=0;$cnt<count($nutrientsArray);++$cnt) {
+    $referenceUrl = (isset($nutrientsReferenceArray[$cnt]) && is_numeric($nutrientsReferenceArray[$cnt])) ? '<small><br>' . $referenceUrlHead . $nutrientsReferenceArray[$cnt] . $referenceUrlFoot . $nutrientsReferenceArray[$cnt] . '</small>' : '';
+
+    $showResultTableData .= '<tr>
+    <th>' . $nutrientsJaArray[$cnt] . '</th>
+    <td>' . $getTotalData[$nutrientsArray[$cnt]] . $nutrientsUnitArray[$cnt] . '</td>';
+    $showResultTableData .= '<td>' . $nutrientsDayArray[$cnt] . $referenceUrl . '</td></tr>';
+  }
+  print $showResultTableData;
 ?>
 	</tbody>
 </table>
