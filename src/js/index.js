@@ -224,6 +224,7 @@
     this.toFirstSettingsBtnEls = document.querySelectorAll('.js-toFirstSettings');
     this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || [];
     this.whenArray = ['朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食'];
+    this.result = document.querySelector('.js-nutritionDataResult');
   };
 
 
@@ -471,7 +472,7 @@
 
       localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
 
-      this.getAndShowNutrientsListData();
+      this.setGetAndShowNutrientsListData();
 
       this.categoryMenuEls[0].children[0].value = 1;
       this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
@@ -483,42 +484,52 @@
 
 
   /// 栄養素のデータを表示
+  Menus.prototype.setGetAndShowNutrientsListData = function() {
+    this.sendPath = 'todaysMenu=' + this.todaysMenuList;
+    this.phpName = '/addMenus.php';
+    this.getAndShowNutrientsListData();
+  };
+
+
+  /// 栄養素のデータを表示
   Menus.prototype.getAndShowNutrientsListData = function() {
 
-    let result = document.querySelector('.js-nutritionDataResult');
-
     let xhr = new XMLHttpRequest();
-    let sendPath = 'todaysMenu=' + this.todaysMenuList;
 
-    xhr.open('POST', '/addMenus.php');
+    xhr.open('POST', this.phpName);
     xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-    xhr.send(sendPath);
-
+    xhr.send(this.sendPath);
 
     xhr.onreadystatechange = function() {
       if (xhr.readyState===4 && xhr.status===200) {
-        result.innerHTML = xhr.responseText;
-
-        let nutrientsListEls = document.querySelectorAll('.js-nutrientsList');
-        nutrientsListEls.forEach((elm) => {
-          if(elm) {
-            elm.addEventListener('click', this.showNutrientsListData.bind(this));
-          }
-        });
-
-        let deleteListEls = document.querySelectorAll('.js-deleteList');
-        deleteListEls.forEach((elm) => {
-          if(elm) {
-            elm.addEventListener('click', this.deleteNutrientsListData.bind(this));
-          }
-        });
-
+        this.result.innerHTML = xhr.responseText;
+        this.afterShowNutritionData();
       }
     }.bind(this);
   };
 
+
+  /// 栄養素のデータ　表示後に行うこと
+  Menus.prototype.afterShowNutritionData = function() {
+    let nutrientsListEls = document.querySelectorAll('.js-nutrientsList');
+    nutrientsListEls.forEach((elm) => {
+      if(elm) {
+        elm.addEventListener('click', this.showNutrientsListData.bind(this));
+      }
+    });
+
+    let deleteListEls = document.querySelectorAll('.js-deleteList');
+    deleteListEls.forEach((elm) => {
+      if(elm) {
+        elm.addEventListener('click', this.deleteNutrientsListData.bind(this));
+      }
+    });
+  };
+
+
   /// 栄養素のデータ　材料を削除
   Menus.prototype.deleteNutrientsListData = function() {
+
     let deleteListIndexArray = String(event.target.parentNode.dataset.index).split('-');
 
     // ローカルストレージから削除して再度取得して表示
@@ -542,7 +553,7 @@
               }
               this.todaysMenuList[cnt2][4] = tempIngredients;
               localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
-              this.getAndShowNutrientsListData();
+              this.setGetAndShowNutrientsListData();
               break;
             }
             ++cnt3;
@@ -574,10 +585,11 @@
 
 
   /// 初期化
-  WeeklyMenu.prototype.initialize = function(aTodaysMs, aWhenArray) {
+  WeeklyMenu.prototype.initialize = function(aTodaysMs, aWhenArray, aGetAndShowNutrientsListData) {
     this.weeklyMenuList = JSON.parse(localStorage.getItem('weeklyMenuList')) || [];
     this.todaysMs = aTodaysMs;
     this.whenArray = aWhenArray;
+    this.getAndShowNutrientsListData = aGetAndShowNutrientsListData;
   };
 
 
@@ -609,26 +621,71 @@
                 if(!cnt5) {
                   showWeeklyData += '<dt class="menuDetails__dt">' + this.whenArray[cnt3] + '</dt><dd class="menuDetails__dd">';
                 }
-                showWeeklyData += '<span class="icon icon--close"></span>' + this.weeklyMenuList[cnt2][cnt4][0] + '<ul>';
-
-                // let ingredientsArray = this.weeklyMenuList[cnt2][cnt4][4].split('_');
-                // for(let cnt6=0,len6=ingredientsArray.length;cnt6<len6;++cnt6) {//材料を表示
-                //
-                //   showWeeklyData += '<li>' + ingredientsArray[cnt6] + '</li>';
-                // }
-                showWeeklyData += '</ul>';
+                showWeeklyData += '<div><span class="icon icon--close"></span><span class="js-weeklyMenu" data-index="' + cnt2 + '-' + cnt4 + '">' + this.weeklyMenuList[cnt2][cnt4][0] + '</span><ul class="disp--none">';
+                showWeeklyData += '</ul></div>';
                 ++cnt5;
               }
             }
           }
-          showWeeklyData += '</dd><dt><div>栄養素の合計を表示</div></dt><dd></dd></dl>';
+          showWeeklyData += '</dd><dt class="js-showTotalData" class="menuDetails__showTotalData" data-index=' + cnt2 + '><span class="icon icon--close"></span>栄養素の合計を表示</dt><dd class="disp--none"></dd></dl>';
         }
       }
       weeklyData[cnt].innerHTML = showWeeklyData;
     }
 
+    let weeklyMenuEls = document.querySelectorAll('.js-weeklyMenu');
+    weeklyMenuEls.forEach((elm) => {
+      if(elm) {
+        elm.addEventListener('click', this.showWeeklyMenuIngredients.bind(this));
+      }
+    });
+
+    let showTotalDataEls = document.querySelectorAll('.js-showTotalData');
+    showTotalDataEls.forEach((elm) => {
+      if(elm) {
+        elm.addEventListener('click', this.showWeeklyMenuTotalData.bind(this));
+      }
+    });
   };
 
+
+  ///　材料を表示
+  WeeklyMenu.prototype.showWeeklyMenuIngredients = function() {
+    let indexArray = event.target.dataset.index.split('-');
+    this.result = event.target.nextSibling;
+    event.target.previousSibling.classList.toggle('icon--close');
+    this.result.classList.toggle('disp--none');
+    this.sendPath = 'ingredientsData=' + this.weeklyMenuList[indexArray[0]][indexArray[1]][4];
+    this.phpName = '/addIngredients.php';
+    this.getAndShowNutrientsListData();
+    this.isIngredients = 1;
+  };
+
+
+  ///　栄養素の合計を表示
+  WeeklyMenu.prototype.showWeeklyMenuTotalData = function() {
+    let index = event.target.dataset.index;
+    this.result = event.target.nextSibling;
+    event.target.children[0].classList.toggle('icon--close');
+    this.result.classList.toggle('disp--none');
+    this.sendPath = 'thisDaysData=' + this.weeklyMenuList[index];
+    this.phpName = '/addTotalNutrients.php';
+    this.getAndShowNutrientsListData();
+    this.isIngredients = 0;
+  };
+
+
+  ///　栄養素データを表示後に行うこと
+  WeeklyMenu.prototype.afterShowNutritionData = function() {
+    if(this.isIngredients) {//材料の表示
+      //open closeの挙動を追加
+
+    }
+    else {//栄養素の合計の表示
+
+    }
+
+  };
 
 
   window.addEventListener('DOMContentLoaded', function() {
@@ -652,7 +709,7 @@
     firstSettings.run();
     let menus = new Menus();
     menus.run();
-    let weeklyMenu = new WeeklyMenu(menus.todayMs,menus.whenArray);
+    let weeklyMenu = new WeeklyMenu(menus.todayMs,menus.whenArray,menus.getAndShowNutrientsListData);
     weeklyMenu.run();
 
   });

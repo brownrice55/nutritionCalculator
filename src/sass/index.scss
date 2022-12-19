@@ -217,6 +217,9 @@ body {
 }
 .menuDetails__dd {
   padding: 12px 12px 20px;
+  span {
+    cursor: pointer;
+  }
 }
 .menuDetails__container {
   padding: 20px 20px 0;
@@ -229,7 +232,9 @@ body {
     }
   }
 }
-
+.menuDetails__showTotalData {
+  cursor: pointer;
+}
 
 
 .table {
