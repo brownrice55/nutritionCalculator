@@ -459,8 +459,6 @@
     else {
 
       // PHPで計算して返す
-      let result = document.querySelector('.js-nutritionDataResult');
-
       let menuSettingEl = document.querySelector('.js-menuSetting select');
 
       // ローカルストレージの今日のデータを全部渡す
@@ -473,28 +471,93 @@
 
       localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
 
-      let xhr = new XMLHttpRequest();
-      let sendPath = 'todaysMenu=' + this.todaysMenuList;
-
-      xhr.open('POST', '/addMenus.php');
-      xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-      xhr.send(sendPath);
-
-
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState===4 && xhr.status===200) {
-          result.innerHTML = xhr.responseText;
-          ingredientsWeightEl.children[0].value = '';
-        }
-      }
+      this.getAndShowNutrientsListData();
 
       this.categoryMenuEls[0].children[0].value = 1;
       this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
+      ingredientsWeightEl.children[0].value = '';
       event.stopImmediatePropagation();
-
     }
 
+  };
 
+
+  /// 栄養素のデータを表示
+  Menus.prototype.getAndShowNutrientsListData = function() {
+
+    let result = document.querySelector('.js-nutritionDataResult');
+
+    let xhr = new XMLHttpRequest();
+    let sendPath = 'todaysMenu=' + this.todaysMenuList;
+
+    xhr.open('POST', '/addMenus.php');
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    xhr.send(sendPath);
+
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState===4 && xhr.status===200) {
+        result.innerHTML = xhr.responseText;
+
+        let nutrientsListEls = document.querySelectorAll('.js-nutrientsList');
+        nutrientsListEls.forEach((elm) => {
+          if(elm) {
+            elm.addEventListener('click', this.showNutrientsListData.bind(this));
+          }
+        });
+
+        let deleteListEls = document.querySelectorAll('.js-deleteList');
+        deleteListEls.forEach((elm) => {
+          if(elm) {
+            elm.addEventListener('click', this.deleteNutrientsListData.bind(this));
+          }
+        });
+
+      }
+    }.bind(this);
+  };
+
+  /// 栄養素のデータ　材料を削除
+  Menus.prototype.deleteNutrientsListData = function() {
+    let deleteListIndexArray = String(event.target.parentNode.dataset.index).split('-');
+
+    // ローカルストレージから削除して再度取得して表示
+    let cnt3 = 0;
+    let ingredientsArray = [];
+    let tempIngredients =  '';
+    //deleteListIndexが0-0-0の場合最初の0は朝食など別　次の0はメニュー別　次の0は材料別のインデックス値
+    for(let cnt=0,len=this.whenArray.length;cnt<len;++cnt) {
+      cnt3 = 0;
+      if(cnt==deleteListIndexArray[0]) {
+        for(let cnt2=0,len2=this.todaysMenuList.length;cnt2<len2;++cnt2) {
+          if(this.todaysMenuList[cnt2][1]==parseInt(deleteListIndexArray[0])+1) {
+            if(cnt3==deleteListIndexArray[1]) {
+              ingredientsArray = this.todaysMenuList[cnt2][4].split('_');
+              ingredientsArray.splice(deleteListIndexArray[2], 1);
+              for(let cnt4=0,len4=ingredientsArray.length;cnt4<len4;++cnt4) {
+                if(tempIngredients) {
+                  tempIngredients += '_';
+                }
+                tempIngredients += ingredientsArray[cnt4];
+              }
+              this.todaysMenuList[cnt2][4] = tempIngredients;
+              localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
+              this.getAndShowNutrientsListData();
+              break;
+            }
+            ++cnt3;
+          }
+        }
+      }
+    }
+
+  };
+
+
+  /// 栄養素のデータ　アコーディオン開閉
+  Menus.prototype.showNutrientsListData = function() {
+    let nutrientsListData = event.target.parentNode.querySelector('.js-nutrientsListData');
+    nutrientsListData.classList.toggle('disp--none');
   };
 
 
@@ -503,6 +566,69 @@
     let index = event.target.value;
     this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[(index-1)];
   };
+
+  // WeeklyMenu
+  const WeeklyMenu = function() {
+    this.initialize.apply(this, arguments);
+  };
+
+
+  /// 初期化
+  WeeklyMenu.prototype.initialize = function(aTodaysMs, aWhenArray) {
+    this.weeklyMenuList = JSON.parse(localStorage.getItem('weeklyMenuList')) || [];
+    this.todaysMs = aTodaysMs;
+    this.whenArray = aWhenArray;
+  };
+
+
+  /// 実行
+  WeeklyMenu.prototype.run = function() {
+    this.setEvent();
+  };
+
+
+  ///　イベントを設定
+  WeeklyMenu.prototype.setEvent = function() {
+    let diff = 0;
+    let howManyDays = 0;
+    let cnt5 = 0;
+    let weeklyData = document.querySelectorAll('.js-weeklyData');
+    let showWeeklyData = '';
+
+    for(let cnt=0,len=weeklyData.length;cnt<len;++cnt) {//日付ごとに表示
+      showWeeklyData = '';
+      for(let cnt2=0,len2=this.weeklyMenuList.length;cnt2<len2;++cnt2) {
+        diff = this.todaysMs-this.weeklyMenuList[cnt2][0][2];
+        howManyDays = diff/86400000;// 1日　86400000
+        if(weeklyData[cnt].dataset.index==howManyDays) {//差分でその日に入れるデータを特定
+          showWeeklyData += '<dl class="menuDetails">';
+          for(let cnt3=0,len3=this.whenArray.length;cnt3<len3;++cnt3) {//朝食、昼食ごとに表示
+            cnt5 = 0;
+            for(let cnt4=0,len4=this.weeklyMenuList[cnt2].length;cnt4<len4;++cnt4) {//1日のデータを見る
+              if(this.weeklyMenuList[cnt2][cnt4] && this.weeklyMenuList[cnt2][cnt4][1]==(cnt3+1)) {
+                if(!cnt5) {
+                  showWeeklyData += '<dt class="menuDetails__dt">' + this.whenArray[cnt3] + '</dt><dd class="menuDetails__dd">';
+                }
+                showWeeklyData += '<span class="icon icon--close"></span>' + this.weeklyMenuList[cnt2][cnt4][0] + '<ul>';
+
+                // let ingredientsArray = this.weeklyMenuList[cnt2][cnt4][4].split('_');
+                // for(let cnt6=0,len6=ingredientsArray.length;cnt6<len6;++cnt6) {//材料を表示
+                //
+                //   showWeeklyData += '<li>' + ingredientsArray[cnt6] + '</li>';
+                // }
+                showWeeklyData += '</ul>';
+                ++cnt5;
+              }
+            }
+          }
+          showWeeklyData += '</dd><dt><div>栄養素の合計を表示</div></dt><dd></dd></dl>';
+        }
+      }
+      weeklyData[cnt].innerHTML = showWeeklyData;
+    }
+
+  };
+
 
 
   window.addEventListener('DOMContentLoaded', function() {
@@ -522,10 +648,12 @@
       toMenuBtnEl.classList.add('disp--none');
     }
 
-    let menus = new Menus();
-    menus.run();
     let firstSettings = new FirstSettings();
     firstSettings.run();
+    let menus = new Menus();
+    menus.run();
+    let weeklyMenu = new WeeklyMenu(menus.todayMs,menus.whenArray);
+    weeklyMenu.run();
 
   });
 

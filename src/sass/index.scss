@@ -6,6 +6,13 @@ body {
 .disp--none {
   display: none;
 }
+.btn--delete {
+  display: block;
+  float: right;
+  border-radius: 1px solid #c99;
+  font-size: 80%;
+  padding: 4px 10px;
+}
 .container {
   margin: 20px auto;
   text-align: center;
@@ -168,7 +175,34 @@ body {
   }
 }
 
+.icon {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  background: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  content: “”;
+  clear: both;
+}
 
+.icon::before, .icon--close::after {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #fff;
+  transform: translateX(-50%);
+}
+
+.icon--close:after {
+  top: 4px;
+  left: 0;
+  transform: rotate(90deg);
+}
 
 
 .menuDetails {
@@ -181,11 +215,18 @@ body {
   color: #fff;
   padding: 4px;
 }
+.menuDetails__dd {
+  padding: 12px 12px 20px;
+}
 .menuDetails__container {
   padding: 20px 20px 0;
   li {
     border-top: 1px dashed #ddd;
     padding: 10px;
+    text-align: left;
+    span {
+      cursor: pointer;
+    }
   }
 }
 

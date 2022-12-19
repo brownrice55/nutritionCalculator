@@ -5,35 +5,18 @@
     <button class="js-toFirstSettings">初期設定</button>
   </div>
 
-  <h2 class="h2Title js-date" data-date ="<?php print $today; ?>"><?php print date("n");?>月<?php print date("j");?>日〜<?php print date("n");?>月<?php print date("j");?>日のメニュー</h2>
+  <?php
+    $targetTime = strtotime($today);
+    $showWeeklyMenu = '<h2 class="h2Title">' . date('m月d日', strtotime('-7 day', $targetTime)) . '〜' . date('m月d日', strtotime('-1 day', $targetTime)) . 'のメニュー</h2>';
 
-  <dl class="form__dl">
-    <dt>12月13日のメニュー</dt>
-    <dd></dd>
-  </dl>
-  <dl class="form__dl">
-    <dt>12月12日のメニュー</dt>
-    <dd></dd>
-  </dl>
-  <dl class="form__dl">
-    <dt>12月11日のメニュー</dt>
-    <dd></dd>
-  </dl>
-  <dl class="form__dl">
-    <dt>12月10日のメニュー</dt>
-    <dd></dd>
-  </dl>
-  <dl class="form__dl">
-    <dt>12月9日のメニュー</dt>
-    <dd></dd>
-  </dl>
-  <dl class="form__dl">
-    <dt>12月8日のメニュー</dt>
-    <dd></dd>
-  </dl>
-  <dl class="form__dl">
-    <dt>12月7日のメニュー</dt>
-    <dd></dd>
-  </dl>
+    for($cnt=1;$cnt<=7;++$cnt) {
+      $showWeeklyMenu .= '<div class="form__dl">
+        <h3>' . date('m月d日', strtotime('-' . $cnt . ' day', $targetTime)) . 'のメニュー</h3>
+        <div class="js-weeklyData" data-index=' . $cnt . '></div>
+      </div>';
+    }
+    print $showWeeklyMenu;
+  ?>
+
 
 </div>

@@ -105,7 +105,7 @@ if(isset($_POST)) {
             $weightArray[] = $arrangeMenuArray[$cnt][$cnt2][4][$cnt3][2];
             if(isset($arrangeMenuArray[$cnt][$cnt2][4][$cnt3][2]) && isset($getData[3])) {
               $showNutrients = showNutrients($getData, $arrangeMenuArray[$cnt][$cnt2][4][$cnt3][2]);
-              $tempMenuDataIngredients .= '<li>' . $getData[3] . ' ' . $arrangeMenuArray[$cnt][$cnt2][4][$cnt3][2] . 'g<br><small>（' . $showNutrients . '）</small></li>';
+              $tempMenuDataIngredients .= '<li data-index="' . $cnt . '-' . $cnt2 . '-' . $cnt3 . '"><span class="btn--delete js-deleteList">✖️削除</span><span class="js-nutrientsList"><span class="icon icon--close"></span>' . $getData[3] . ' ' . $arrangeMenuArray[$cnt][$cnt2][4][$cnt3][2] . 'g</span><br><small class="js-nutrientsListData disp--none">（' . $showNutrients . '）</small></li>';
             }
           }
           $showMenuData .= $tempMenuDataIngredients . '</ul></div>';
