@@ -154,14 +154,13 @@ body {
 }
 
 .form__btn--small {
-  display: inline-block;
-  width: 200px;
-  padding: 4px;
+  padding: 4px 20px;
   margin: 0 0 20px;
   border: none;
   border-radius: 4px;
   background-color: #ccc;
   color: #666;
+  font-size: 90%;
   font-weight: bold;
   cursor: pointer;
   border: 2px solid transparent;

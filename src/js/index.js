@@ -923,7 +923,6 @@
     }
     showTodaysMenuListArray += '<option value="addNewMenu">新しいメニューを追加する</option>';
 
-
     // 前の画面で入力したメニューを設定
     let menuSettingEl = document.querySelector('.js-menuSetting select');
     menuSettingEl.innerHTML = showTodaysMenuListArray;
@@ -1064,15 +1063,26 @@
             if(cnt3==deleteListIndexArray[1]) {
               ingredientsArray = this.todaysMenuList[cnt2][4].split('_');
               ingredientsArray.splice(deleteListIndexArray[2], 1);
-              for(let cnt4=0,len4=ingredientsArray.length;cnt4<len4;++cnt4) {
-                if(tempIngredients) {
-                  tempIngredients += '_';
+              if(ingredientsArray.length>0) {
+                for(let cnt4=0,len4=ingredientsArray.length;cnt4<len4;++cnt4) {
+                  if(tempIngredients) {
+                    tempIngredients += '_';
+                  }
+                  tempIngredients += ingredientsArray[cnt4];
                 }
-                tempIngredients += ingredientsArray[cnt4];
+                this.todaysMenuList[cnt2][4] = tempIngredients;
               }
-              this.todaysMenuList[cnt2][4] = tempIngredients;
+              else {
+                this.todaysMenuList[cnt2][4] = '';
+              }
               localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
-              this.setGetAndShowNutrientsListData();
+              if(ingredientsArray.length<1) {
+                event.preventDefault();
+                this.result.innerHTML = '';
+              }
+              else {
+                this.setGetAndShowNutrientsListData();
+              }
               break;
             }
             ++cnt3;
