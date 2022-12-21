@@ -3,6 +3,7 @@ if(isset($_POST)) {
   extract($_POST);
   $thisDaysData = $_POST['thisDaysData'];
   $thisDaysDataArray = explode(',', $thisDaysData);
+  $thToday = 'この日';
 
   include './script/func/_funcCommon.php';
 

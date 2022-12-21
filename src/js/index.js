@@ -63,7 +63,30 @@
     let bmrData = this.getBMR(formula, age, gender, height, weight);
     let amountOfEnergy = Math.round(bmrData * momentum);
 
-    localStorage.setItem('amountOfEnergy', JSON.stringify(amountOfEnergy));
+    let proteinMinPer = this.getProteinMinPer(age);
+    let kalium = this.getKalium(age, gender);
+    let ca = this.getCa(age, gender);
+    let mg = this.getMg(age, gender);
+    let p = this.getP(gender);
+    let fe = this.getFe(age, gender);
+    let zn = this.getZn(age, gender);
+    let cu = this.getCu(gender);
+    let mn = this.getMn(gender);
+    let se = this.getSe(gender);
+    let mo = this.getMo(gender);
+    let vitaminA = this.getVitaminA(age, gender);
+    let vitaminE = this.getVitaminE(age, gender);
+    let vitaminB1 = this.getVitaminB1(age, gender);
+    let vitaminB2 = this.getVitaminB2(age, gender);
+    let niacin = this.getNiacin(age, gender);
+    let vitaminB6 = this.getVitaminB6(age, gender);
+    let folicacid = this.getFolicacid(age);
+    let pantothenicacid = this.getPantothenicacid(age, gender);
+    let dietaryfiber = this.getDietaryfiber(age, gender);
+
+    let setData = amountOfEnergy + '_' + proteinMinPer + '_' + kalium + '_' + ca + '_' + mg + '_' + p + '_' + fe + '_' + zn + '_' + cu + '_' + mn + '_' + se + '_' + mo + '_' + vitaminA + '_' + vitaminE + '_' + vitaminB1 + '_' + vitaminB2 + '_' + niacin + '_' + vitaminB6 + '_' + folicacid + '_' + pantothenicacid + '_' + dietaryfiber;
+
+    localStorage.setItem('amountOfEnergy', JSON.stringify(setData));
 
     let sectionsEls = document.querySelectorAll('.js-sections');
     sectionsEls[0].classList.add('disp--none');
@@ -81,7 +104,7 @@
   ///　初期設定の入力チェック
   FirstSettings.prototype.checkInputedData = function(aArray) {
 
-    let errorCnt = 0
+    let errorCnt = 0;
     for(let cnt=0,len=aArray[0].length;cnt<len;++cnt) {
       if(!aArray[0][cnt]) {
         this.firstSettingsAttentionEls[cnt].innerHTML = aArray[1][cnt] + 'を入力してください。';
@@ -98,6 +121,22 @@
 
     if(aArray[0][0]<18) {
       this.firstSettingsAttentionEls[0].innerHTML = '18歳以上が対象です。';
+      errorCnt++;
+    }
+    if(aArray[0][1]>272) {
+      this.firstSettingsAttentionEls[1].innerHTML = '272cm以下で入力してください。';
+      errorCnt++;
+    }
+    if(aArray[0][2]>500) {
+      this.firstSettingsAttentionEls[2].innerHTML = '500kg以下で入力してください。';
+      errorCnt++;
+    }
+
+    for(let cnt=1,len=aArray[0].length;cnt<len;++cnt) {
+      if(aArray[0][cnt]==0) {
+        this.firstSettingsAttentionEls[cnt].innerHTML = aArray[1][cnt] + 'を入力してください。';
+        errorCnt++;
+      }
     }
 
     return errorCnt;
@@ -192,6 +231,470 @@
   };
 
 
+  ///　1日に必要なタンパク質の量の最小の%
+  FirstSettings.prototype.getProteinMinPer = function(aAge) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=133　に沿って取得
+    let min = 0;
+    if(aAge<50) {
+      return 13;
+    }
+    else if(aAge<65) {
+      return 14;
+    }
+    else {
+      return 15;
+    }
+  };
+
+
+  ///　1日に必要なカリウム
+  FirstSettings.prototype.getKalium = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=283
+    if(aGender==1) {//男性
+      if(aAge<75) {
+        return 3000;
+      }
+      else {
+        return 2800;
+      }
+    }
+    else {
+      if(aAge<75) {
+        return 2600;
+      }
+      else {
+        return 2400;
+      }
+    }
+  };
+
+
+  ///　1日に必要なカルシウムの量
+  FirstSettings.prototype.getCa = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=287
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return 789;
+      }
+      else if(aAge<50) {
+        return 738;
+      }
+      else if(aAge<65) {
+        return 737;
+      }
+      else if(aAge<75) {
+        return 769;
+      }
+      else {
+        return 720;
+      }
+    }
+    else {
+      if(aAge<30) {
+        return 661;
+      }
+      else if(aAge<50) {
+        return 660;
+      }
+      else if(aAge<65) {
+        return 667;
+      }
+      else if(aAge<75) {
+        return 652;
+      }
+      else {
+        return 620;
+      }
+    }
+
+  };
+
+
+  ///　1日に必要なマグネシウムの量
+  FirstSettings.prototype.getMg = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=316
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return 340;
+      }
+      else if(aAge<65) {
+        return 370;
+      }
+      else if(aAge<75) {
+        return 350;
+      }
+      else {
+        return 320;
+      }
+    }
+    else {
+      if(aAge<30) {
+        return 270;
+      }
+      else if(aAge<65) {
+        return 290;
+      }
+      else if(aAge<75) {
+        return 280;
+      }
+      else {
+        return 260;
+      }
+    }
+
+  };
+
+
+  ///　1日に必要なリンの量
+  FirstSettings.prototype.getP = function(aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=317
+    if(aGender==1) {//男性
+      return 1000;
+    }
+    else {
+      return 800;
+    }
+
+  };
+
+
+  ///　1日に必要な鉄の量
+  FirstSettings.prototype.getFe = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=373
+    if(aGender==1) {//男性
+      return '7.5-50';
+    }
+    else {
+      if(aAge<50) {
+        return '6.5-10.5-40';
+      }
+      else if(aAge<65) {
+        return '6.5-11.0-40';
+      }
+      else {
+        return '6.0-0-40';
+      }
+    }
+    return 0;
+  };
+
+
+  ///　1日に必要な亜鉛の量
+  FirstSettings.prototype.getZn = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=374
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return '11-40';
+      }
+      else if(aAge<65) {
+        return '11-45';
+      }
+      else {
+        return '11-40';
+      }
+    }
+    else {
+      if(aAge<75) {
+        return '8-35';
+      }
+      else {
+        return '8-30';
+      }
+    }
+
+  };
+
+
+  ///　1日に必要な銅の量
+  FirstSettings.prototype.getCu = function(aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=375
+    if(aGender==1) {//男性
+      return '0.9-7';
+    }
+    else {
+      return '0.7-7';
+    }
+
+  };
+
+
+  ///　1日に必要な銅の量
+  FirstSettings.prototype.getMn = function(aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=376
+    if(aGender==1) {//男性
+      return '4.0-11';
+    }
+    else {
+      return '3.5-11';
+    }
+
+  };
+
+
+  ///　1日に必要なセレンの量
+  FirstSettings.prototype.getSe = function(aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=378
+    if(aGender==1) {//男性
+      return '30-450';
+    }
+    else {
+      return '25-350';
+    }
+
+  };
+
+
+  ///　1日に必要なモリブデンの量
+  FirstSettings.prototype.getMo = function(aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=380
+    if(aGender==1) {//男性
+      return '30-600';
+    }
+    else {
+      return '25-500';
+    }
+
+  };
+
+
+  ///　1日に必要なビタミンAの量
+  FirstSettings.prototype.getVitaminA = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=212
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return 850;
+      }
+      else if(aAge<65) {
+        return 900;
+      }
+      else if(aAge<75) {
+        return 850;
+      }
+      else {
+        return 800;
+      }
+    }
+    else {
+      if(aAge<30) {
+        return 650;
+      }
+      else if(aAge<75) {
+        return 700;
+      }
+      else {
+        return 650;
+      }
+    }
+
+  };
+
+
+  ///　1日に必要なビタミンEの量
+  FirstSettings.prototype.getVitaminE = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=214
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return '6.0-850';
+      }
+      else if(aAge<50) {
+        return '6.0-900';
+      }
+      else if(aAge<75) {
+        return '7.0-850';
+      }
+      else {
+        return '6.5-750';
+      }
+    }
+    else {
+      if(aAge<30) {
+        return '5.0-650';
+      }
+      else if(aAge<50) {
+        return '5.5-700';
+      }
+      else if(aAge<65) {
+        return '6.0-700';
+      }
+      else {
+        return '6.5-650';
+      }
+    }
+
+  };
+
+
+  ///　1日に必要なビタミンB1の量
+  FirstSettings.prototype.getVitaminB1 = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=264
+    if(aGender==1) {//男性
+      if(aAge<50) {
+        return 1.4;
+      }
+      else if(aAge<75) {
+        return 1.3;
+      }
+      else {
+        return 1.2;
+      }
+    }
+    else {
+      if(aAge<75) {
+        return 1.1;
+      }
+      else {
+        return 0.9;
+      }
+    }
+
+  };
+
+
+  ///　1日に必要なビタミンB2の量
+  FirstSettings.prototype.getVitaminB2 = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=265
+    if(aGender==1) {//男性
+      if(aAge<50) {
+        return 1.6;
+      }
+      else if(aAge<75) {
+        return 1.5;
+      }
+      else {
+        return 1.3;
+      }
+    }
+    else {
+      if(aAge<75) {
+        return 1.2;
+      }
+      else {
+        return 1.0;
+      }
+    }
+  };
+
+
+  ///　1日に必要なナイアシンの量
+  FirstSettings.prototype.getNiacin = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=266
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return '15-300';
+      }
+      else if(aAge<50) {
+        return '15-350';
+      }
+      else if(aAge<65) {
+        return '14-350';
+      }
+      else if(aAge<75) {
+        return '14-300';
+      }
+      else {
+        return '13-300';
+      }
+    }
+    else {
+      if(aAge<30) {
+        return '11-250';
+      }
+      else if(aAge<50) {
+        return '12-250';
+      }
+      else if(aAge<75) {
+        return '11-250';
+      }
+      else {
+        return '10-250';
+      }
+    }
+  };
+
+
+  ///　1日に必要なビタミンB6の量
+  FirstSettings.prototype.getVitaminB6 = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=267
+    if(aGender==1) {//男性
+      if(aAge<30) {
+        return '1.4-55';
+      }
+      else if(aAge<50) {
+        return '1.4-60';
+      }
+      else if(aAge<65) {
+        return '1.4-55';
+      }
+      else {
+        return '1.4-50';
+      }
+    }
+    else {
+      if(aAge<65) {
+        return '1.1-45';
+      }
+      else {
+        return '1.1-40';
+      }
+    }
+  };
+
+
+  ///　1日に必要な葉酸の量
+  FirstSettings.prototype.getFolicacid = function(aAge) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=269
+    if(aAge<30) {
+      return '240-900';
+    }
+    else if(aAge<65) {
+      return '240-1,000';
+    }
+    else {
+      return '240-900';
+    }
+  };
+
+
+  ///　1日に必要なパントテン酸の量
+  FirstSettings.prototype.getPantothenicacid = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=270
+    if(aGender==1) {
+      if(aAge<50) {
+        return 5;
+      }
+      else {
+        return 6;
+      }
+    }
+    else {
+      return 5;
+    }
+  };
+
+
+
+  ///　1日に必要な食物繊維の量
+  FirstSettings.prototype.getDietaryfiber = function(aAge, aGender) {
+    // https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=172
+    if(aGender==1) {
+      if(aAge<65) {
+        return 21;
+      }
+      else {
+        return 20;
+      }
+    }
+    else {
+      if(aAge<65) {
+        return 18;
+      }
+      else {
+        return 17;
+      }
+    }
+  };
+
+
   ///　データの取得
   FirstSettings.prototype.getRadioValue = function(aEls) {
     for(let cnt=0,len=aEls.length;cnt<len;++cnt) {
@@ -225,6 +728,7 @@
     this.todaysMenuList = JSON.parse(localStorage.getItem('todaysMenuList')) || [];
     this.whenArray = ['朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食'];
     this.result = document.querySelector('.js-nutritionDataResult');
+    this.amountOfEnergy = JSON.parse(localStorage.getItem('amountOfEnergy')) || '';
   };
 
 
@@ -262,31 +766,7 @@
     let today = new Date(document.querySelector('.js-date').dataset.date);
     this.todayMs = today.getTime();
     let diffMs = 0;
-
-    // weeklyMenuListArrayの古いデータ（１週間以上前）は破棄する
-    // 今日以外であればpushして、最後にweeklyMenuListArrayのデータをまとめて全部チェックする
-
-    if(this.todaysMenuList.length) {
-      diffMs = this.todayMs - this.todaysMenuList[0][2];
-
-      // 今日のデータではない時
-      if(diffMs) {
-        weeklyMenuListArray.push(this.todaysMenuList);
-        // 今日のストレージは空にしておく
-        localStorage.setItem('todaysMenuList', JSON.stringify(''));
-      }
-
-    }
-
-    // weeklyMenuListArrayの全部のデータをチェックして、1週間以内の時はweeklyのローカルストレージに格納
-    for(let cnt=0,len=weeklyMenuListArray.length;cnt<len;++cnt) {
-      diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
-      if(diffMs>604800000) {
-        weeklyMenuListArray.splice(cnt,1);
-      }
-    }
-
-    localStorage.setItem('weeklyMenuList', JSON.stringify(weeklyMenuListArray));
+    let isUpdate = false;
 
     let toWeeklyMenuEls = document.querySelectorAll('.js-toWeeklyMenu');
     for(let cnt=0,len=toWeeklyMenuEls.length;cnt<len;++cnt) {
@@ -303,6 +783,46 @@
         elm.addEventListener('click', this.showWeeklyMenu.bind(this));
       }
     });
+
+    // その日初めてのアクセスでは無い場合はreturn;
+    let firstAccessData = JSON.parse(localStorage.getItem('firstAccess')) || '';
+    if(this.todayMs==firstAccessData) {
+      return;
+    }
+
+    // weeklyMenuListArrayの古いデータ（１週間以上前）は破棄する
+    // 今日以外であればpushして、最後にweeklyMenuListArrayのデータをまとめて全部チェックする
+
+    if(this.todaysMenuList.length) {
+      diffMs = this.todayMs - this.todaysMenuList[0][2];
+
+      // 今日のデータではない時
+      if(diffMs) {
+        weeklyMenuListArray.push(this.todaysMenuList);
+        // 今日のストレージは空にしておく
+        localStorage.setItem('todaysMenuList', JSON.stringify(''));
+        isUpdate = true;
+      }
+
+    }
+
+    // weeklyMenuListArrayの全部のデータをチェックして、1週間以内の時はweeklyのローカルストレージに格納
+    for(let cnt=0,len=weeklyMenuListArray.length;cnt<len;++cnt) {
+      diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
+      if(diffMs>604800000) {
+        weeklyMenuListArray.splice(cnt,1);
+        isUpdate = true;
+      }
+    }
+
+    if(isUpdate) {
+      localStorage.setItem('weeklyMenuList', JSON.stringify(weeklyMenuListArray));
+      localStorage.setItem('firstAccess', JSON.stringify(this.todayMs));
+      location.reload();
+    }
+    else {
+      return;
+    }
 
   };
 
@@ -429,7 +949,6 @@
 
   /// 過去1週間のメニューを表示
   Menus.prototype.showWeeklyMenu = function() {
-
     this.menuSections[0].classList.add('disp--none');
     this.menuSections[1].classList.add('disp--none');
     this.menuSections[2].classList.remove('disp--none');
@@ -485,7 +1004,7 @@
 
   /// 栄養素のデータを表示
   Menus.prototype.setGetAndShowNutrientsListData = function() {
-    this.sendPath = 'todaysMenu=' + this.todaysMenuList;
+    this.sendPath = 'todaysMenu=' + this.todaysMenuList + '&amountOfEnergy=' + this.amountOfEnergy;
     this.phpName = '/addMenus.php';
     this.getAndShowNutrientsListData();
   };
@@ -585,11 +1104,12 @@
 
 
   /// 初期化
-  WeeklyMenu.prototype.initialize = function(aTodaysMs, aWhenArray, aGetAndShowNutrientsListData) {
+  WeeklyMenu.prototype.initialize = function(aTodaysMs, aWhenArray, aGetAndShowNutrientsListData, aAmountOfEnergy) {
     this.weeklyMenuList = JSON.parse(localStorage.getItem('weeklyMenuList')) || [];
     this.todaysMs = aTodaysMs;
     this.whenArray = aWhenArray;
     this.getAndShowNutrientsListData = aGetAndShowNutrientsListData;
+    this.amountOfEnergy = aAmountOfEnergy;
   };
 
 
@@ -668,7 +1188,7 @@
     this.result = event.target.nextSibling;
     event.target.children[0].classList.toggle('icon--close');
     this.result.classList.toggle('disp--none');
-    this.sendPath = 'thisDaysData=' + this.weeklyMenuList[index];
+    this.sendPath = 'thisDaysData=' + this.weeklyMenuList[index] + '&amountOfEnergy=' + this.amountOfEnergy;
     this.phpName = '/addTotalNutrients.php';
     this.getAndShowNutrientsListData();
     this.isIngredients = 0;
@@ -709,7 +1229,7 @@
     firstSettings.run();
     let menus = new Menus();
     menus.run();
-    let weeklyMenu = new WeeklyMenu(menus.todayMs,menus.whenArray,menus.getAndShowNutrientsListData);
+    let weeklyMenu = new WeeklyMenu(menus.todayMs, menus.whenArray, menus.getAndShowNutrientsListData, menus.amountOfEnergy);
     weeklyMenu.run();
 
   });

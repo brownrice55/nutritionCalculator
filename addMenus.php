@@ -3,9 +3,9 @@ if(isset($_POST)) {
   extract($_POST);
   $todaysMenu = $_POST['todaysMenu'];
   $getTodaysMenuArray = explode(',', $todaysMenu);
+  $thToday = '今日';
 
   include './script/func/_funcCommon.php';
-
 
   function showNutrients($aGetData, $aWeight) {
 
