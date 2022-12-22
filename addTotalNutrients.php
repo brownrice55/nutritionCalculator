@@ -10,9 +10,9 @@ if(isset($_POST)) {
   $arrangeMenuArray = arrangeMenuArray($thisDaysDataArray);
 
   for($cnt=0;$cnt<count($arrangeMenuArray);++$cnt) {//朝食、昼食などごとに表示
-    if(isset($arrangeMenuArray[$cnt][0])) {
+    if(isset($arrangeMenuArray[$cnt][0]) && isset($arrangeMenuArray[$cnt][0][4][0][1])) {
       for($cnt2=0;$cnt2<count($arrangeMenuArray[$cnt]);++$cnt2) {//各メニューごとに表示
-        if(isset($arrangeMenuArray[$cnt][$cnt2][4])) {
+        if(isset($arrangeMenuArray[$cnt][$cnt2][4][0][1])) {
           for($cnt3=0;$cnt3<count($arrangeMenuArray[$cnt][$cnt2][4]);++$cnt3) {//各材料ごとに
             $getData = getData($arrangeMenuArray[$cnt][$cnt2][4][$cnt3][0], $arrangeMenuArray[$cnt][$cnt2][4][$cnt3][1]);
             $getDataArray[] = $getData;

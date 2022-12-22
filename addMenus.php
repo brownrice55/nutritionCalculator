@@ -30,13 +30,15 @@ if(isset($_POST)) {
   if($arrangeMenuArray) {
     $whenArray = array('朝食', 'ブランチ', '昼食', '間食', '夕食', '夜食');
     $showMenuData = '';
+    $tempMenuDataIngredients = '';
+
 
     for($cnt=0;$cnt<count($whenArray);++$cnt) {//朝食、昼食などごとに表示
-      if(isset($arrangeMenuArray[$cnt][0])) {
+      if(isset($arrangeMenuArray[$cnt])) {
         $showMenuData .= '<dl class="menuDetails"><dt class="menuDetails__dt">' . $whenArray[$cnt] . '</dt><dd>';
         for($cnt2=0;$cnt2<count($arrangeMenuArray[$cnt]);++$cnt2) {//各メニューごとに表示
-        $showMenuData .= '<div class="menuDetails__container"><p>' . $arrangeMenuArray[$cnt][$cnt2][0] . '</p><ul>';
-        $tempMenuDataIngredients = '';
+          $showMenuData .= '<div class="menuDetails__container"><p>' . $arrangeMenuArray[$cnt][$cnt2][0] . '</p><ul>';
+          $tempMenuDataIngredients = '';
           for($cnt3=0;$cnt3<count($arrangeMenuArray[$cnt][$cnt2][4]);++$cnt3) {//各材料ごとに
             $getData = getData($arrangeMenuArray[$cnt][$cnt2][4][$cnt3][0], $arrangeMenuArray[$cnt][$cnt2][4][$cnt3][1]);
             $getDataArray[] = $getData;

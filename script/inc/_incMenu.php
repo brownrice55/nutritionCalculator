@@ -67,7 +67,8 @@
       </dd>
     </dl>
 
-    <button type="submit" class="js-menuRegisterBtn form__btn">この材料を登録する</button>
+    <button type="submit" class="js-menuRegisterBtn form__btn" data-index="1">この材料を登録する</button><br>
+    <button type="submit" class="js-showNutritionDataBtn form__btn--small" data-index="2">材料を登録せずに現在の栄養素の合計を確認</button>
   </form>
 
 

@@ -13,6 +13,7 @@
     this.firstSettingsDdEls = document.querySelectorAll('.js-firstSettings dd');
     this.firstSettingsBtnEl = document.querySelector('.js-firstSettingsBtn');
     this.firstSettingsAttentionEls = document.querySelectorAll('.js-firstSettings .js-attention');
+    this.nutritionDataResultEl = document.querySelector('.js-nutritionDataResult');
   };
 
 
@@ -98,6 +99,7 @@
     this.firstSettingsDdEls[3].children[0].children[0].value = '';
     this.firstSettingsDdEls[5].children[0].children[0].value = 1;
 
+    this.nutritionDataResultEl.innerHTML = '';
   };
 
 
@@ -710,6 +712,7 @@
     let sectionsEls = document.querySelectorAll('.js-sections');
     sectionsEls[0].classList.add('disp--none');
     sectionsEls[1].classList.remove('disp--none');
+    this.nutritionDataResultEl.innerHTML = '';
   };
 
 
@@ -752,6 +755,7 @@
       this.show2ndMenu();
       // 入力画面から詳細メニューに戻るボタン
       this.backTo2ndMenuBtnEl.classList.remove('disp--none');
+      this.result.innerHTML = '';
     }
     else {//最初の画面
       this.show1stMenu();
@@ -841,7 +845,7 @@
     // いつ食べる？
     let when = this.menuDdEls[1].children[0].children[0].value;
 
-    let menuData = [menu,when,this.todayMs,1];
+    let menuData = [menu,when,this.todayMs,1, ''];
 
     let isNewMenu = true;
 
@@ -898,12 +902,12 @@
     this.toFirstSettingsBtnEls[0].addEventListener('click',this.showFirstSettings.bind(this));
 
     this.backTo2ndMenuBtnEl.addEventListener('click', this.show2ndMenu.bind(this));
+    this.result.innerHTML = '';
   };
 
 
   /// 詳細入力のメニューを設定
   Menus.prototype.show2ndMenu = function() {
-
     this.menuSections[0].classList.add('disp--none');
     this.menuSections[1].classList.remove('disp--none');
     this.menuSections[2].classList.add('disp--none');
@@ -931,6 +935,23 @@
     // 栄養素データを更新する
     let menuRegisterBtnEl = document.querySelector('.js-menuRegisterBtn');
     menuRegisterBtnEl.addEventListener('click', this.getNutrientsData.bind(this));
+
+    //栄養素データを表示する
+    this.showNutritionDataBtnEl = document.querySelector('.js-showNutritionDataBtn');
+    this.showNutritionDataBtnEl.addEventListener('click', this.setGetAndShowNutrientsListData.bind(this));
+
+    let isIngredients = 0;
+    for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
+      if(this.todaysMenuList[cnt][4]) {
+        ++isIngredients;
+      }
+    }
+    if(isIngredients) {
+      this.showNutritionDataBtnEl.classList.remove('disp--none');
+    }
+    else {
+      this.showNutritionDataBtnEl.classList.add('disp--none');
+    }
 
   };
 
@@ -981,7 +1002,6 @@
       let menuSettingEl = document.querySelector('.js-menuSetting select');
 
       // ローカルストレージの今日のデータを全部渡す
-      // データが無い時は（[4]が空の時）、削除しますか？の表示を出す　***後で
 
       let menuIndex = String(menuSettingEl.value).split('-')[1];
       let array4Data = (this.todaysMenuList[menuIndex][4]) ? this.todaysMenuList[menuIndex][4] + '_' : '';
@@ -996,6 +1016,7 @@
       this.categoryMenuEls[1].children[0].innerHTML = showOptionSubcategoryData[0];
       ingredientsWeightEl.children[0].value = '';
       event.stopImmediatePropagation();
+
     }
 
   };
@@ -1003,6 +1024,9 @@
 
   /// 栄養素のデータを表示
   Menus.prototype.setGetAndShowNutrientsListData = function() {
+    if(event.target.dataset.index==2) {
+      event.preventDefault();
+    }
     this.sendPath = 'todaysMenu=' + this.todaysMenuList + '&amountOfEnergy=' + this.amountOfEnergy;
     this.phpName = '/addMenus.php';
     this.getAndShowNutrientsListData();
@@ -1013,7 +1037,6 @@
   Menus.prototype.getAndShowNutrientsListData = function() {
 
     let xhr = new XMLHttpRequest();
-
     xhr.open('POST', this.phpName);
     xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     xhr.send(this.sendPath);
@@ -1042,6 +1065,9 @@
         elm.addEventListener('click', this.deleteNutrientsListData.bind(this));
       }
     });
+
+    this.showNutritionDataBtnEl.classList.add('disp--none');
+
   };
 
 
@@ -1049,45 +1075,42 @@
   Menus.prototype.deleteNutrientsListData = function() {
 
     let deleteListIndexArray = String(event.target.parentNode.dataset.index).split('-');
+    for(let cnt=0;cnt<3;++cnt) {
+      deleteListIndexArray[cnt] = (deleteListIndexArray[cnt]!='0') ? parseInt(deleteListIndexArray[cnt]) : 0;
+    }
 
     // ローカルストレージから削除して再度取得して表示
-    let cnt3 = 0;
     let ingredientsArray = [];
     let tempIngredients =  '';
-    //deleteListIndexが0-0-0の場合最初の0は朝食など別　次の0はメニュー別　次の0は材料別のインデックス値
-    for(let cnt=0,len=this.whenArray.length;cnt<len;++cnt) {
-      cnt3 = 0;
-      if(cnt==deleteListIndexArray[0]) {
-        for(let cnt2=0,len2=this.todaysMenuList.length;cnt2<len2;++cnt2) {
-          if(this.todaysMenuList[cnt2][1]==parseInt(deleteListIndexArray[0])+1) {
-            if(cnt3==deleteListIndexArray[1]) {
-              ingredientsArray = this.todaysMenuList[cnt2][4].split('_');
-              ingredientsArray.splice(deleteListIndexArray[2], 1);
-              if(ingredientsArray.length>0) {
-                for(let cnt4=0,len4=ingredientsArray.length;cnt4<len4;++cnt4) {
-                  if(tempIngredients) {
-                    tempIngredients += '_';
-                  }
-                  tempIngredients += ingredientsArray[cnt4];
-                }
-                this.todaysMenuList[cnt2][4] = tempIngredients;
+
+    // deleteListIndexが0-0-0の場合最初の0は朝食など別　次の0はメニュー別　次の0は材料別のインデックス値
+    // deleteListIndexArrayの値と対応する要素を削除してthis.todaysMenuListをアップデートしてローカルストレージにセットし、PHPで表示
+    let menuCnt = 0;
+    for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
+      if(this.todaysMenuList[cnt][1]==deleteListIndexArray[0]+1 && this.todaysMenuList[cnt][4]) { //朝食などのカテゴリ別で判定
+        if(menuCnt==deleteListIndexArray[1]) { //朝食などのカテゴリ別の中で何番目のメニューかとdeleteIndexArray[1]がイコールの場合
+          ingredientsArray = this.todaysMenuList[cnt][4].split('_');
+          ingredientsArray.splice(deleteListIndexArray[2], 1);
+          if(ingredientsArray.length>0) { //材料が_で分かれる配列になっているのでつないで文字列にする
+            for(let cnt2=0,len2=ingredientsArray.length;cnt2<len2;++cnt2) {
+              if(tempIngredients) {
+                tempIngredients += '_';
               }
-              else {
-                this.todaysMenuList[cnt2][4] = '';
-              }
-              localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
-              if(ingredientsArray.length<1) {
-                event.preventDefault();
-                this.result.innerHTML = '';
-              }
-              else {
-                this.setGetAndShowNutrientsListData();
-              }
-              break;
+              tempIngredients += ingredientsArray[cnt2];
             }
-            ++cnt3;
+            this.todaysMenuList[cnt][4] = tempIngredients;
           }
+          else {
+            this.todaysMenuList[cnt][4] = '';
+          }
+          localStorage.setItem('todaysMenuList', JSON.stringify(this.todaysMenuList));
+          this.setGetAndShowNutrientsListData();
+          break;
         }
+        ++menuCnt;// 朝食などのカテゴリ別で同じもの（かつ材料があるもの）がいくつあるか数える
+      }
+      else {
+        menuCnt = 0;
       }
     }
 
@@ -1098,6 +1121,7 @@
   Menus.prototype.showNutrientsListData = function() {
     let nutrientsListData = event.target.parentNode.querySelector('.js-nutrientsListData');
     nutrientsListData.classList.toggle('disp--none');
+    event.target.children[0].classList.toggle('icon--close');
   };
 
 
@@ -1151,9 +1175,11 @@
                 if(!cnt5) {
                   showWeeklyData += '<dt class="menuDetails__dt">' + this.whenArray[cnt3] + '</dt><dd class="menuDetails__dd">';
                 }
-                showWeeklyData += '<div><span class="icon icon--close"></span><span class="js-weeklyMenu" data-index="' + cnt2 + '-' + cnt4 + '">' + this.weeklyMenuList[cnt2][cnt4][0] + '</span><ul class="disp--none">';
-                showWeeklyData += '</ul></div>';
-                ++cnt5;
+                if(this.weeklyMenuList[cnt2][cnt4][4][0]) {
+                  showWeeklyData += '<div><span class="icon icon--close"></span><span class="js-weeklyMenu" data-index="' + cnt2 + '-' + cnt4 + '">' + this.weeklyMenuList[cnt2][cnt4][0] + '</span><ul class="disp--none">';
+                  showWeeklyData += '</ul></div>';
+                  ++cnt5;
+                }
               }
             }
           }

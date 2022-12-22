@@ -42,7 +42,9 @@ function arrangeMenuArray($aGetTodaysMenuArray) {
   $todaysMenuArrayByCategory = array();
   if(is_array($todaysMenuArray)) {
     for($cnt=0;$cnt<count($todaysMenuArray);++$cnt) {
-      $todaysMenuArrayByCategory[($todaysMenuArray[$cnt][1]-1)][] = $todaysMenuArray[$cnt];
+      if(isset($todaysMenuArray[$cnt][4][0][1])) {
+        $todaysMenuArrayByCategory[($todaysMenuArray[$cnt][1]-1)][] = $todaysMenuArray[$cnt];
+      }
     }
   }
   return $todaysMenuArrayByCategory;
