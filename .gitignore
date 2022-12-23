@@ -4,3 +4,7 @@ package-lock.json
 package.json
 postcss.config.js
 webpack.config.js
+
+/script/csv/
+
+/src/sass/destyle.scss
