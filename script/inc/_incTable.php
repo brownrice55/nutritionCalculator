@@ -65,7 +65,7 @@
 
 	$showResultTableData = '';
   $referenceUrlHead = '<a href="https://www.mhlw.go.jp/content/10904750/000586553.pdf#page=';
-	$referenceUrlFoot = '" target="_bank" rel="nofollow">厚生労働省「日本人の食事摂取基準（2020年版）」</a>P.';
+	$referenceUrlFoot = '" target="_bank" rel="nofollow">日本人の食事摂取基準（2020年版）「日本人の食事摂取基準」策定検討会報告書</a> P.';
 
   for($cnt=0;$cnt<count($nutrientsArray);++$cnt) {
     $referenceUrl = (isset($nutrientsReferenceArray[$cnt]) && is_numeric($nutrientsReferenceArray[$cnt])) ? '<small><br>' . $referenceUrlHead . ($nutrientsReferenceArray[$cnt]+7) . $referenceUrlFoot . $nutrientsReferenceArray[$cnt] . '</small>' : '';

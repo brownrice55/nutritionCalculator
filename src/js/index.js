@@ -802,7 +802,15 @@
 
       // 今日のデータではない時
       if(diffMs) {
-        weeklyMenuListArray.push(this.todaysMenuList);
+        //　WeeklyMenuListに移すtodaysMenuListのデータで[4]が無いものは削除しておく
+        let tempTodaysMenuListData = [];
+        for(let cnt=0,len=this.todaysMenuList.length;cnt<len;++cnt) {
+          if(this.todaysMenuList[cnt][4]) {
+            tempTodaysMenuListData.push(this.todaysMenuList[cnt]);
+          }
+        }
+
+        weeklyMenuListArray.push(tempTodaysMenuListData);
         // 今日のストレージは空にしておく
         localStorage.setItem('todaysMenuList', JSON.stringify(''));
         isUpdate = true;
@@ -1183,7 +1191,7 @@
               }
             }
           }
-          showWeeklyData += '</dd><dt class="js-showTotalData" class="menuDetails__showTotalData" data-index=' + cnt2 + '><span class="icon icon--close"></span>栄養素の合計を表示</dt><dd class="disp--none"></dd></dl>';
+          showWeeklyData += '</dd><dt class="js-showTotalData menuDetails__showTotalData" data-index=' + cnt2 + '><span class="icon icon--close"></span>栄養素の合計を表示</dt><dd class="disp--none"></dd></dl>';
         }
       }
       weeklyData[cnt].innerHTML = showWeeklyData;
@@ -1202,6 +1210,22 @@
         elm.addEventListener('click', this.showWeeklyMenuTotalData.bind(this));
       }
     });
+
+    let weeklyH3TitleEls = document.querySelectorAll('.js-weeklyH3Title');
+    weeklyH3TitleEls.forEach((elm) => {
+      if(elm) {
+        elm.addEventListener('click', this.showWeeklyMenuPerDay.bind(this));
+      }
+    });
+
+  };
+
+
+  ///　1日ごと表示、非表示
+  WeeklyMenu.prototype.showWeeklyMenuPerDay = function() {
+    let target = event.target;
+    target.children[0].classList.toggle('icon--close');
+    target.nextSibling.nextSibling.classList.toggle('disp--none');
   };
 
 

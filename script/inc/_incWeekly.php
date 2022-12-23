@@ -11,8 +11,8 @@
 
     for($cnt=1;$cnt<=7;++$cnt) {
       $showWeeklyMenu .= '<div class="form__dl">
-        <h3>' . date('m月d日', strtotime('-' . $cnt . ' day', $targetTime)) . 'のメニュー</h3>
-        <div class="js-weeklyData" data-index=' . $cnt . '></div>
+        <h3 class="h3Title js-weeklyH3Title"><span class="icon icon--close"></span>' . date('m月d日', strtotime('-' . $cnt . ' day', $targetTime)) . 'のメニュー</h3>
+        <div class="js-weeklyData disp--none" data-index=' . $cnt . '></div>
       </div>';
     }
     print $showWeeklyMenu;

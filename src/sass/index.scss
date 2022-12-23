@@ -21,6 +21,9 @@ body {
 .h2Title {
   margin: 20px 0 0;
 }
+.h3Title {
+  cursor: pointer;
+}
 .form {
   text-align: center;
   border-radius: 4px;
@@ -169,7 +172,7 @@ body {
   }
   &:focus {
     outline: 0;
-    background-color: #000;
+    background-color: #ccc;
     border: 2px solid rgb(255, 133, 139);
   }
 }
@@ -241,21 +244,22 @@ body {
   border-spacing: 0;
   table-layout: fixed;
   width: 100%;
+  border-top: 1px solid #ddd;
   tr:last-child {
-    border-bottom:solid 1px #ddd;
+    border-bottom: 1px solid #ddd;
   }
   th {
     text-align: center;
     padding: 10px 0;
-    border-right:solid 1px #ddd;
-    border-left:solid 1px #ddd;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
     width: 30%;
   }
   td {
     text-align: center;
     padding: 7px 0;
-    border-right:solid 1px #ddd;
-    border-left:solid 1px #ddd;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
     width: 30%;
   }
 }
