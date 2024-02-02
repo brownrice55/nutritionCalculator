@@ -20,16 +20,25 @@ Could you please let me know if there are any errors in my English or code?</p>
 <p>また、現在、英語とプログラミングの両方を勉強しています。
 おかしなところがありましたら、ご指摘いただけますと幸いです。</p>
 
-<p>I will provide additional information below at a later time.</p>
-<p>下記、後ほど追記します。</p>
+<p>I created this program assuming the following data will be used.</p>
+<p>文部科学省のサイトにある、下記の日本食品標準成分表2020年版（八訂）のデータを利用することを想定して作成しています。</p>
 
-<p>文部科学省のサイトにある、下記の日本食品標準成分表2020年版（八訂）のデータを利用することを前提としています。
-https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html</p>
+<p>https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html</p>
 
-<p>また、文部科学省にも使用の許可を取っておらず、上記のデータはgithubにアップロードしていません。</p>
+<p>However, without having obtained permission from the MEXT, there is no data regarding this in the repository.</p>
+<p>ですが、使用の許可を取っていないため、データはリポジトリにありません。</p>
 
+<p>I would appreciate it if you could take note of the above.</p>
 <p>上記の点、ご承知おきいただけますと幸いです。</p>
 
 
-## プログラムの概要
-後ほど記載いたします。
+# nutritionCalculator
+> 栄養素計算
+
+## outline
+<p>
+This app displays the nutritional content of each menu item.
+</p>
+<p>
+栄養素をメニューごとに表示します。
+</p>
