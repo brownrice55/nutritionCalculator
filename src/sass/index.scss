@@ -33,100 +33,99 @@ body {
   small {
     color: #c00;
   }
-}
-.form__dl {
-  margin: 20px 0;
-}
-.form__dt {
-  font-weight: normal;
-  padding: 10px 0 4px;
-}
-.form__setting {
-  text-align: right;
-  padding: 0 20px;
-  button {
-    border: 1px solid #fff;
-    padding: 4px 20px;
-    border-radius: 4px;
-    font-size: 90%;
+  &__dl {
+    margin: 20px 0;
   }
-}
-.form__select {
-  position: relative;
-  width: 240px;
-  text-align: center;
-  margin: 0 auto 6px;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    right: 12px;
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid #fff;
-    border-right: 2px solid #fff;
-    transform: rotate(135deg);
-    pointer-events: none;
+  &__dt {
+    font-weight: normal;
+    padding: 10px 0 4px;
   }
-  select {
+  &__setting {
+    text-align: right;
+    padding: 0 20px;
+    button {
+      border: 1px solid #fff;
+      padding: 4px 20px;
+      border-radius: 4px;
+      font-size: 90%;
+    }
+  }
+  &__select {
+    position: relative;
+    width: 240px;
+    text-align: center;
+    margin: 0 auto 6px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid #fff;
+      border-right: 2px solid #fff;
+      transform: rotate(135deg);
+      pointer-events: none;
+    }
+    select {
+      height: 2.4em;
+      width: 100%;
+      padding: 0 8px;
+      border-radius: 4px;
+      border: none;
+      box-shadow: 0 0 0 1px #fff inset;
+      cursor: pointer;
+      &::-ms-expand {
+        display: none;
+      }
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 2px rgb(255, 133, 139) inset;
+      }
+    }
+  }
+  &__input {
     height: 2.4em;
-    width: 100%;
-    padding: 0 8px;
+    padding: 0 16px;
     border-radius: 4px;
     border: none;
     box-shadow: 0 0 0 1px #fff inset;
-    cursor: pointer;
-    &::-ms-expand {
-      display: none;
-    }
     &:focus {
       outline: 0;
       box-shadow: 0 0 0 2px rgb(255, 133, 139) inset;
     }
   }
-}
-.form__input {
-  height: 2.4em;
-  padding: 0 16px;
-  border-radius: 4px;
-  border: none;
-  box-shadow: 0 0 0 1px #fff inset;
-  &:focus {
-    outline: 0;
-    box-shadow: 0 0 0 2px rgb(255, 133, 139) inset;
-  }
-}
-.form__radio {
-  padding: 0 4px;
-}
-.form__radio--input {
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    border: 0;
-    padding: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    margin: -1px;
-}
-
-.form__radio--span {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  &:before {
-    content: "";
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    margin-right: 4px;
-    flex-shrink: 0;
+  &__radio {
+    padding: 0 4px;
+    &--input {
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      border: 0;
+      padding: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      margin: -1px;
+    }
+    &--span {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      &:before {
+        content: "";
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        margin-right: 4px;
+        flex-shrink: 0;
+      }
+    }
   }
 }
 
@@ -134,46 +133,46 @@ body {
     border: 0.2em solid rgb(255, 133, 139);
 }
 
-.form__btn {
-  display: inline-block;
-  width: 240px;
-  padding: 8px;
-  margin: 20px 0;
-  border: none;
-  border-radius: 4px;
-  background-color: #333;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  border: 2px solid transparent;
-  &:hover {
-    outline: none;
-    background-color: #000;
-  }
-  &:focus {
-    outline: none;
-    background-color: #000;
-  }
-}
-
-.form__btn--small {
-  padding: 4px 20px;
-  margin: 0 0 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #ccc;
-  color: #666;
-  font-size: 90%;
-  font-weight: bold;
-  cursor: pointer;
-  border: 2px solid transparent;
-  &:hover {
-    background-color: #ddd;
-  }
-  &:focus {
-    outline: 0;
-    background-color: #ccc;
-    border: 2px solid rgb(255, 133, 139);
+.form {
+  &__btn {
+    display: inline-block;
+    width: 240px;
+    padding: 8px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid transparent;
+    &:hover {
+      outline: 0;
+      background-color: #000;
+    }
+    &:focus {
+      outline: 0;
+      background-color: #000;
+    }
+    &--small {
+      padding: 4px 20px;
+      margin: 0 0 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #ccc;
+      color: #666;
+      font-size: 90%;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid transparent;
+      &:hover {
+        background-color: #ddd;
+      }
+      &:focus {
+        outline: 0;
+        background-color: #ccc;
+      }
+    }
   }
 }
 
@@ -211,31 +210,31 @@ body {
   background: #fff;
   margin: 20px;
   padding: 20px;
-}
-.menuDetails__dt {
-  background: #866363;
-  color: #fff;
-  padding: 4px;
-}
-.menuDetails__dd {
-  padding: 12px 12px 20px;
-  span {
-    cursor: pointer;
+  &__dt {
+    background: #866363;
+    color: #fff;
+    padding: 4px;
   }
-}
-.menuDetails__container {
-  padding: 20px 20px 0;
-  li {
-    border-top: 1px dashed #ddd;
-    padding: 10px;
-    text-align: left;
+  &__dd {
+    padding: 12px 12px 20px;
     span {
       cursor: pointer;
     }
   }
-}
-.menuDetails__showTotalData {
-  cursor: pointer;
+  &__container {
+    padding: 20px 20px 0;
+    li {
+      border-top: 1px dashed #ddd;
+      padding: 10px;
+      text-align: left;
+      span {
+        cursor: pointer;
+      }
+    }
+  }
+  &__showTotalData {
+    cursor: pointer;
+  }
 }
 
 
