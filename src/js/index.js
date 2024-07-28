@@ -88,18 +88,8 @@
     let setData = amountOfEnergy + '_' + proteinMinPer + '_' + kalium + '_' + ca + '_' + mg + '_' + p + '_' + fe + '_' + zn + '_' + cu + '_' + mn + '_' + se + '_' + mo + '_' + vitaminA + '_' + vitaminE + '_' + vitaminB1 + '_' + vitaminB2 + '_' + niacin + '_' + vitaminB6 + '_' + folicacid + '_' + pantothenicacid + '_' + dietaryfiber;
 
     localStorage.setItem('amountOfEnergy', JSON.stringify(setData));
+    window.location.reload(false);
 
-    let sectionsEls = document.querySelectorAll('.js-sections');
-    sectionsEls[0].classList.add('disp--none');
-    sectionsEls[1].classList.remove('disp--none');
-
-    // フォームのvalueを初期値に戻しておく
-    this.firstSettingsDdEls[0].children[0].children[0].value = '';
-    this.firstSettingsDdEls[2].children[0].children[0].value = '';
-    this.firstSettingsDdEls[3].children[0].children[0].value = '';
-    this.firstSettingsDdEls[5].children[0].children[0].value = 1;
-
-    this.nutritionDataResultEl.innerHTML = '';
   };
 
 
@@ -819,11 +809,13 @@
     }
 
     // weeklyMenuListArrayの全部のデータをチェックして、1週間以内の時はweeklyのローカルストレージに格納
-    for(let cnt=0,len=weeklyMenuListArray.length;cnt<len;++cnt) {
-      diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
-      if(diffMs>604800000) {
-        weeklyMenuListArray.splice(cnt,1);
-        isUpdate = true;
+    if(weeklyMenuListArray.length) {
+      for(let cnt=0,len=weeklyMenuListArray.length;cnt<len;++cnt) {
+        diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
+        if(diffMs>604800000) {
+          weeklyMenuListArray.splice(cnt,1);
+          isUpdate = true;
+        }
       }
     }
 
