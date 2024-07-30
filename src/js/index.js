@@ -811,10 +811,12 @@
     // weeklyMenuListArrayの全部のデータをチェックして、1週間以内の時はweeklyのローカルストレージに格納
     if(weeklyMenuListArray.length) {
       for(let cnt=0,len=weeklyMenuListArray.length;cnt<len;++cnt) {
-        diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
-        if(diffMs>604800000) {
-          weeklyMenuListArray.splice(cnt,1);
-          isUpdate = true;
+        if(weeklyMenuListArray[cnt]) {
+          diffMs = this.todayMs - weeklyMenuListArray[cnt][0][2];
+          if(diffMs>604800000) {
+            weeklyMenuListArray.splice(cnt,1);
+            isUpdate = true;
+          }  
         }
       }
     }
