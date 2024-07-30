@@ -42,3 +42,8 @@ This app displays the nutritional content of each menu item.
 <p>
 栄養素をメニューごとに表示します。
 </p>
+
+## reset css
+<ul>
+  <li>https://github.com/nicolas-cusan/destyle.css</li>
+</ul>

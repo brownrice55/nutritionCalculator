@@ -8,3 +8,4 @@ webpack.config.js
 /script/csv/
 
 /src/sass/destyle.scss
+/dist/
