@@ -240,7 +240,6 @@ This app displays the nutritional content of each menu item.
   <li>献立のリクエスト受付範囲設定（特定の人、人数）</li>
   <li>献立のプレゼント</li>
   <li>献立のプレゼント受付</li>
-  <li></li>
   </ul>
 </li>
 <li>必要な食材
@@ -308,7 +307,7 @@ This app displays the nutritional content of each menu item.
 <li>設定
   <ul>
   <li>基本設定</li>
-  <li>カロリー設定（基本設定入力が利用）</li>
+  <li>自分で設定（基本設定入力が嫌な人が利用）</li>
   <li>エリア設定</li>
   <li>家にある食材の設定</li>
   <li>好きな食材・優先的に使いたい食材の設定</li>
@@ -360,7 +359,7 @@ This app displays the nutritional content of each menu item.
 <li>栄養素の表示</li>
 <li>献立の登録</li>
 <li>レシピ・メニューを献立に追加</li>
-<li>アカウント認証</li>
+<li>マイページ・各種設定</li>
 </ul>
 
 
