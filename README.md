@@ -218,6 +218,7 @@ This app displays the nutritional content of each menu item.
   <li>一覧表示</li>
   <li>詳細表示</li>
   <li>お気に入り追加数表示</li>
+  <li>絞り込み検索</li>
   <li>レビュー管理</li>
   <li>SNS等への共有</li>
   </ul>
@@ -227,6 +228,11 @@ This app displays the nutritional content of each menu item.
   <li>お店の情報登録・申請・承認</li>
   <li>メニュー登録</li>
   <li>メニュー追加</li>
+  <li>メニュー削除</li>
+  <li>メニュー一覧表示</li>
+  <li>メニュー詳細表示</li>
+  <li>お気に入り追加数表示</li>
+  <li>絞り込み検索</li>
   <li>レビュー管理</li>
   <li>SNS等への共有</li>
   </ul>
@@ -318,6 +324,11 @@ This app displays the nutritional content of each menu item.
   <li>アカウントの削除</li>
   </ul>
 </li>
+<li>検索
+  <ul>
+  <li>全体の検索</li>
+  </ul>
+</li>
 <li>設定
   <ul>
   <li>基本設定</li>
@@ -407,6 +418,7 @@ This app displays the nutritional content of each menu item.
   <li>一覧表示</li>
   <li>詳細表示</li>
   <li>お気に入り追加数表示</li>
+  <li>絞り込み検索（最低限）</li>
   </ul>
 </li>
 <li>お店のメニュー
@@ -414,6 +426,11 @@ This app displays the nutritional content of each menu item.
   <li>お店の情報登録・申請・承認</li>
   <li>メニュー登録</li>
   <li>メニュー追加</li>
+  <li>メニュー削除</li>
+  <li>メニュー一覧表示</li>
+  <li>メニュー詳細表示</li>
+  <li>お気に入り追加数表示</li>
+  <li>絞り込み検索（最低限）</li>
   </ul>
 </li>
 <li>レシピクリエイター
@@ -485,9 +502,9 @@ This app displays the nutritional content of each menu item.
 
 ### ワイヤーフレーム
 
-| トップページ |  |  |
+| ホーム（ログイン前） | ホーム（献立登録前） | ホーム（献立登録後） |
 | ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/0db04a31-f28d-4061-b672-8c1701231682" width="200" /> | <img src="https://github.com/user-attachments/assets/4dc7859e-c9e7-4cc9-bf90-97d3045053be" width="200" /> | <img src="https://github.com/user-attachments/assets/4fe82c42-911e-4970-bd83-dc754fdd728a" width="200" /> |
 
 | マイレシピ登録 | マイレシピ登録確認 | マイレシピ編集 |
 | ---- | ---- | ---- |
@@ -636,6 +653,16 @@ This app displays the nutritional content of each menu item.
   <li>好きなメニュー・ジャンルのお店のメニュー</li>
   <li>現在不足している栄養素が多く含まれるのお店のメニュー</li>
   <li>よく使うメニュー</li>
+  </ul>
+</li>
+<li>シェアレシピ（承認されたマイレシピ：マイレシピと比べて、写真と手順、紹介コメント・特長などが必須になる）（有料有り）
+  <ul>
+  <li>絞り込み検索（条件追加）</li>
+  </ul>
+</li>
+<li>お店のメニュー
+  <ul>
+  <li>絞り込み検索（条件追加）</li>
   </ul>
 </li>
 <li>有料プラン
