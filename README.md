@@ -320,7 +320,7 @@ This app displays the nutritional content of each menu item.
   <li>サインイン</li>
   <li>ログイン</li>
   <li>ログアウト</li>
-  <li>パスワード忘れ</li>
+  <li>パスワード再発行</li>
   <li>アカウントの削除</li>
   </ul>
 </li>
@@ -479,7 +479,7 @@ This app displays the nutritional content of each menu item.
   <li>サインイン</li>
   <li>ログイン</li>
   <li>ログアウト</li>
-  <li>パスワード忘れ</li>
+  <li>パスワード再発行</li>
   <li>アカウントの削除</li>
   </ul>
 </li>
@@ -505,6 +505,27 @@ This app displays the nutritional content of each menu item.
 | ホーム（ログイン前） | ホーム（献立登録前） | ホーム（献立登録後） |
 | ---- | ---- | ---- |
 | <img src="https://github.com/user-attachments/assets/0db04a31-f28d-4061-b672-8c1701231682" width="200" /> | <img src="https://github.com/user-attachments/assets/4dc7859e-c9e7-4cc9-bf90-97d3045053be" width="200" /> | <img src="https://github.com/user-attachments/assets/4fe82c42-911e-4970-bd83-dc754fdd728a" width="200" /> |
+
+
+| 献立（お気に入りから追加） |  |  |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/2c28525d-8ecb-4ab0-95bc-6bfd7b7faeca" width="200" /> |  |  |
+
+
+| 献立（材料から追加） | 献立（マイレシピ登録から1） | 献立（マイレシピ登録から2） |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/4181e105-eaa5-4921-ae80-d7bb674bcb4f" width="200" /> | <img src="https://github.com/user-attachments/assets/e9ea22c9-842c-4abd-8aea-c8532609d5b4" width="200" /> | <img src="https://github.com/user-attachments/assets/b8e5652f-84be-4efd-8900-1e3565176a7f" width="200" /> |
+
+
+| 献立（レシピから追加） |  |  |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/b68f474b-0b9c-4f38-aed8-ae81a71af65c" width="200" /> |  |  |
+
+
+| 献立（お店のメニューから追加） |  |  |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/b9216573-614a-44f0-89c9-0e81f9b5c596" width="200" /> |  |  |
+
 
 | マイレシピ登録 | マイレシピ登録確認 | マイレシピ編集 |
 | ---- | ---- | ---- |
