@@ -527,17 +527,25 @@ This app displays the nutritional content of each menu item.
 | <img src="https://github.com/user-attachments/assets/b9216573-614a-44f0-89c9-0e81f9b5c596" width="200" /> |  |  |
 
 
-| マイレシピ登録 | マイレシピ登録確認 | マイレシピ編集 |
+| レシピを作る | レシピを作る2 |  |
 | ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/51c6d321-d87f-4366-968a-3cbc49f9681e" width="200" /> | <img src="https://github.com/user-attachments/assets/20a3239d-65ca-4747-b37e-8c0dfe8ab3ec" width="200" /> |  |
 
-| マイレシピ一覧表示 | マイレシピ詳細 | 
-| ---- | ---- |
-| ---- | ---- |
+| レシピを探す |  |  | 
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/56b405e5-65b2-4146-827f-acad404193aa" width="200" /> |  |  |
+
+| お店を探す |  |  | 
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/0824b4c6-30b9-4b99-8ab0-abe9434ed1eb" width="200" /> |  |  |
+
+| 栄養素を確認する |  |  | 
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/4e41dd69-48cf-45dd-a1d5-83fe8faa60b5" width="200" /> | <img src="" width="200" /> |  |
 
 | シェアレシピ登録 | シェアレシピ登録確認 | シェアレシピ編集 |
 | ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="" width="200" /> | <img src="" width="200" /> |  |
 
 | シェアレシピ一覧 | シェアレシピ詳細 | 絞り込み検索 | 
 | ---- | ---- | ---- |
