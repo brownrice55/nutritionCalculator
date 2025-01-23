@@ -549,7 +549,7 @@ This app displays the nutritional content of each menu item.
 
 | マイページ（基本設定） | マイページ（アカウント設定） |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/579ed04b-ae00-42d6-89f9-6057097f52b2" width="200" /> | <img src="https://github.com/user-attachments/assets/032fb463-261c-49b8-a4b0-7d6a63c0f404" width="200" /> |  |
+| <img src="https://github.com/user-attachments/assets/ee7568d3-3cc1-4e32-acfe-b859affee5ed" width="200" /> | <img src="https://github.com/user-attachments/assets/032fb463-261c-49b8-a4b0-7d6a63c0f404" width="200" /> |  |
 
 
 | お気に入り |  |  |
@@ -562,6 +562,11 @@ This app displays the nutritional content of each menu item.
 | <img src="https://github.com/user-attachments/assets/608b68ae-7470-44a1-ae92-0fa33d705bdd" width="200" /> | <img src="https://github.com/user-attachments/assets/4eed03a0-4d1b-4252-a30c-d28908ac4dab" width="200" /> |  |
 
 
+| レシピ編集 | レシピ削除 | 申請（シェアレシピへ） |
+| ---- | ---- | ---- |
+| <img src="" width="200" /> | <img src="" width="200" /> | <img src="" width="200" /> |
+
+
 | シェアレシピ登録 | シェアレシピ登録確認 | シェアレシピ編集 |
 | ---- | ---- | ---- |
 | <img src="" width="200" /> | <img src="" width="200" /> |  |
@@ -571,17 +576,20 @@ This app displays the nutritional content of each menu item.
 | ---- | ---- | ---- |
 | ---- | ---- | ---- |
 
+
 | 必要な材料一覧 |  |  |
 | ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="" width="200" /> |  |  |
+
 
 | 利用規約 | 個人情報保護方針 |  |
 | ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="" width="200" /> | <img src="" width="200" /> |  |
+
 
 | お店の情報登録 | お店のメニュー登録 | |
 | ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="" width="200" /> | <img src="" width="200" /> |  |
 
 
 ## phase2
