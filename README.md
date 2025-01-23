@@ -502,88 +502,84 @@ This app displays the nutritional content of each menu item.
 
 ### ワイヤーフレーム
 
-| ホーム（ログイン前） | ホーム（献立登録前） | ホーム（献立登録後） |
+| ホーム（ログイン前） | ホーム（ログイン後登録前） | ホーム（献立登録後） |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/0db04a31-f28d-4061-b672-8c1701231682" width="200" /> | <img src="https://github.com/user-attachments/assets/4dc7859e-c9e7-4cc9-bf90-97d3045053be" width="200" /> | <img src="https://github.com/user-attachments/assets/4fe82c42-911e-4970-bd83-dc754fdd728a" width="200" /> |
+| <img src="https://github.com/user-attachments/assets/8fbe523d-f55c-4b2e-ba0d-64979494fbdc" width="200" /> | <img src="https://github.com/user-attachments/assets/ce4d7c4f-4f06-40b4-a22c-6fbb2ae01a05" width="200" /> | <img src="https://github.com/user-attachments/assets/e204a377-90fa-42ea-a2f8-be3057af9d1f" width="200" /> |
 
 
 | 献立（お気に入りから追加） |  |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/2c28525d-8ecb-4ab0-95bc-6bfd7b7faeca" width="200" /> |  |  |
+| <img src="https://github.com/user-attachments/assets/75e1a435-bf47-4571-8f36-8754e0ee191c" width="200" /> |  |  |
 
 
 | 献立（材料から追加） | 献立（マイレシピ登録から1） | 献立（マイレシピ登録から2） |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/4181e105-eaa5-4921-ae80-d7bb674bcb4f" width="200" /> | <img src="https://github.com/user-attachments/assets/e9ea22c9-842c-4abd-8aea-c8532609d5b4" width="200" /> | <img src="https://github.com/user-attachments/assets/b8e5652f-84be-4efd-8900-1e3565176a7f" width="200" /> |
+| <img src="https://github.com/user-attachments/assets/a48ed8ec-064a-47a1-89a6-657ef27a068b" width="200" /> | <img src="https://github.com/user-attachments/assets/1b2f5c74-36cb-4dd3-bed0-d751e9b8ddfe" width="200" /> | <img src="https://github.com/user-attachments/assets/2030e67a-1c62-464f-9aad-14b564fbe8f9" width="200" /> |
 
 
 | 献立（レシピから追加） |  |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/b68f474b-0b9c-4f38-aed8-ae81a71af65c" width="200" /> |  |  |
+| <img src="https://github.com/user-attachments/assets/94253836-1450-4f89-8ab3-a476affe8f32" width="200" /> |  |  |
 
 
 | 献立（お店のメニューから追加） |  |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/b9216573-614a-44f0-89c9-0e81f9b5c596" width="200" /> |  |  |
+| <img src="https://github.com/user-attachments/assets/6512bb83-e958-462f-8393-4796fb46dcda" width="200" /> |  |  |
+
+
+| レシピを探す |  |  | 
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/eb4fd1cd-aa84-40f5-ad35-ebe0e700b8c7" width="200" /> |  |  |
+
+
+| お店を探す |  |  | 
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/e31ef570-acd7-4fb1-8719-e95a64e3c3dd" width="200" /> |  |  |
+
+
+| 栄養素を確認する |  |  | 
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/bf991181-8713-4426-bd49-505c6d1d133a" width="200" /> |  |  |
+
+
+| ログイン | 本登録 | パスワード再発行 |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/2b6e28d2-5964-434a-9f42-d7a48d2d3fcf" width="200" /> | <img src="https://github.com/user-attachments/assets/b4a51963-09c8-47ee-bc75-3cce0873d19b" width="200" /> | <img src="https://github.com/user-attachments/assets/99eda0c2-00d9-4105-8989-9b38cd4de722" width="200" /> |
+
+
+| マイページ（基本設定） | マイページ（アカウント設定） |  |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/579ed04b-ae00-42d6-89f9-6057097f52b2" width="200" /> | <img src="https://github.com/user-attachments/assets/032fb463-261c-49b8-a4b0-7d6a63c0f404" width="200" /> |  |
+
+
+| お気に入り |  |  |
+| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/1c3cf7a8-026b-4dd1-be8b-10c4d81047f2" width="200" /> |  |  |
 
 
 | レシピを作る | レシピを作る2 |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/51c6d321-d87f-4366-968a-3cbc49f9681e" width="200" /> | <img src="https://github.com/user-attachments/assets/20a3239d-65ca-4747-b37e-8c0dfe8ab3ec" width="200" /> |  |
+| <img src="https://github.com/user-attachments/assets/608b68ae-7470-44a1-ae92-0fa33d705bdd" width="200" /> | <img src="https://github.com/user-attachments/assets/4eed03a0-4d1b-4252-a30c-d28908ac4dab" width="200" /> |  |
 
-| レシピを探す |  |  | 
-| ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/56b405e5-65b2-4146-827f-acad404193aa" width="200" /> |  |  |
-
-| お店を探す |  |  | 
-| ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/0824b4c6-30b9-4b99-8ab0-abe9434ed1eb" width="200" /> |  |  |
-
-| 栄養素を確認する |  |  | 
-| ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/4e41dd69-48cf-45dd-a1d5-83fe8faa60b5" width="200" /> | <img src="" width="200" /> |  |
 
 | シェアレシピ登録 | シェアレシピ登録確認 | シェアレシピ編集 |
 | ---- | ---- | ---- |
 | <img src="" width="200" /> | <img src="" width="200" /> |  |
 
+
 | シェアレシピ一覧 | シェアレシピ詳細 | 絞り込み検索 | 
 | ---- | ---- | ---- |
 | ---- | ---- | ---- |
-
-| 保存したレシピ一覧 | 保存したお店のメニュー一覧 |
-| ---- | ---- |
-| ---- | ---- |
-
-| お店のメニュー登録 | お店のメニュー登録確認 | お店のメニュー編集 |
-| ---- | ---- | ---- |
-| ---- | ---- | ---- |
-
-| お店のメニュー一覧 | お店のメニュー詳細 | 絞り込み検索 | 
-| ---- | ---- | ---- |
-| ---- | ---- | ---- |
-
-| 今日の献立登録登録 | 今日の献立登録登録確認 | 今日の献立登録編集 |
-| ---- | ---- | ---- |
-| ---- | ---- | ---- |
-
-| 献立の履歴一覧 | 献立の履歴詳細 | 
-| ---- | ---- |
-| ---- | ---- |
 
 | 必要な材料一覧 |  |  |
 | ---- | ---- | ---- |
 | ---- | ---- | ---- |
 
-| 利用規約 |  |  |
+| 利用規約 | 個人情報保護方針 |  |
 | ---- | ---- | ---- |
 | ---- | ---- | ---- |
 
-| サインイン | ログイン | パスワード再発行 |
-| ---- | ---- | ---- |
-| ---- | ---- | ---- |
-
-| 設定一覧 | 基本設定 | エリア設定 |
+| お店の情報登録 | お店のメニュー登録 | |
 | ---- | ---- | ---- |
 | ---- | ---- | ---- |
 
