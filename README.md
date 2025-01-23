@@ -549,7 +549,7 @@ This app displays the nutritional content of each menu item.
 
 | マイページ（基本設定） | マイページ（アカウント設定） |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/ee7568d3-3cc1-4e32-acfe-b859affee5ed" width="200" /> | <img src="https://github.com/user-attachments/assets/032fb463-261c-49b8-a4b0-7d6a63c0f404" width="200" /> |  |
+| <img src="https://github.com/user-attachments/assets/586f591f-2dee-4b85-8b97-290e427b580a" width="200" /> | <img src="https://github.com/user-attachments/assets/032fb463-261c-49b8-a4b0-7d6a63c0f404" width="200" /> |  |
 
 
 | お気に入り |  |  |
