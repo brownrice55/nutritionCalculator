@@ -559,12 +559,12 @@ This app displays the nutritional content of each menu item.
 
 | レシピを作る | レシピを作る2 |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/608b68ae-7470-44a1-ae92-0fa33d705bdd" width="200" /> | <img src="https://github.com/user-attachments/assets/45cfe39a-b5c1-4efc-91bb-d962cd81b73d" width="200" /> |  |
+| <img src="https://github.com/user-attachments/assets/608b68ae-7470-44a1-ae92-0fa33d705bdd" width="200" /> | <img src="https://github.com/user-attachments/assets/154f31a2-eb27-4d94-b6b3-b35bc40e0a3f" width="200" /> |  |
 
 
 | レシピ編集 | 申請（シェアレシピへ） | レシピ削除 |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/59a85bc1-5a60-45a3-b351-362a53cc56c3" width="200" /> | <img src="https://github.com/user-attachments/assets/51310125-3186-4973-a4ea-ecb521f1994a" width="200" /> |  |
+| <img src="https://github.com/user-attachments/assets/086e7de5-8708-4e42-96df-8528108d2a15" width="200" /> | <img src="https://github.com/user-attachments/assets/fceeefb3-02de-4301-ae88-916479667113" width="200" /> |  |
 
 
 | 必要な材料一覧 |  |  |
