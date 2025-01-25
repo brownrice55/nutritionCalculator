@@ -559,22 +559,12 @@ This app displays the nutritional content of each menu item.
 
 | レシピを作る | レシピを作る2 |  |
 | ---- | ---- | ---- |
-| <img src="https://github.com/user-attachments/assets/608b68ae-7470-44a1-ae92-0fa33d705bdd" width="200" /> | <img src="https://github.com/user-attachments/assets/4eed03a0-4d1b-4252-a30c-d28908ac4dab" width="200" /> |  |
+| <img src="https://github.com/user-attachments/assets/608b68ae-7470-44a1-ae92-0fa33d705bdd" width="200" /> | <img src="https://github.com/user-attachments/assets/45cfe39a-b5c1-4efc-91bb-d962cd81b73d" width="200" /> |  |
 
 
-| レシピ編集 | レシピ削除 | 申請（シェアレシピへ） |
+| レシピ編集 | 申請（シェアレシピへ） | レシピ削除 |
 | ---- | ---- | ---- |
-| <img src="" width="200" /> | <img src="" width="200" /> | <img src="" width="200" /> |
-
-
-| シェアレシピ登録 | シェアレシピ登録確認 | シェアレシピ編集 |
-| ---- | ---- | ---- |
-| <img src="" width="200" /> | <img src="" width="200" /> |  |
-
-
-| シェアレシピ一覧 | シェアレシピ詳細 | 絞り込み検索 | 
-| ---- | ---- | ---- |
-| ---- | ---- | ---- |
+| <img src="https://github.com/user-attachments/assets/59a85bc1-5a60-45a3-b351-362a53cc56c3" width="200" /> | <img src="https://github.com/user-attachments/assets/51310125-3186-4973-a4ea-ecb521f1994a" width="200" /> |  |
 
 
 | 必要な材料一覧 |  |  |
